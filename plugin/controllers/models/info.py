@@ -101,7 +101,7 @@ def getIPv4Method(iface):
 def getLinkSpeed(iface):
 	speed = _("unknown")
 	try:
-		with open('/sys/class/net/' + iface + '/speed', 'r') as f:
+		with open('/sys/class/net/' + iface + '/speed") as f:
 			speed = f.read().strip()
 	except:  # nosec # noqa: E722
 		if os.path.isdir('/sys/class/net/' + iface + '/wireless'):
@@ -220,7 +220,7 @@ def getInfo(session=None, need_fullinfo=False):
 
 	chipset = "unknown"
 	if fileExists("/etc/.box"):
-		f = open("/etc/.box", 'r')
+		f = open("/etc/.box")
 		model = f.readline().strip().lower()
 		f.close()
 		if model.startswith("ufs") or model.startswith("ufc"):
@@ -231,7 +231,7 @@ def getInfo(session=None, need_fullinfo=False):
 		elif model in ("topf", "tf7700hdpvr"):
 			chipset = "SH4 @266MHz"
 		elif model.startswith("azbox"):
-			f = open("/proc/stb/info/model", 'r')
+			f = open("/proc/stb/info/model")
 			model = f.readline().strip().lower()
 			f.close()
 			if model == "me":
@@ -246,7 +246,7 @@ def getInfo(session=None, need_fullinfo=False):
 			else:
 				chipset = "SH4 @450MHz"
 	elif fileExists("/proc/stb/info/azmodel"):
-		f = open("/proc/stb/info/model", 'r')
+		f = open("/proc/stb/info/model")
 		model = f.readline().strip().lower()
 		f.close()
 		if model == "me":
@@ -256,7 +256,7 @@ def getInfo(session=None, need_fullinfo=False):
 		else:
 			chipset = "SIGMA 8634"
 	elif fileExists("/proc/stb/info/model"):
-		f = open("/proc/stb/info/model", 'r')
+		f = open("/proc/stb/info/model")
 		model = f.readline().strip().lower()
 		f.close()
 		if model == "tf7700hdpvr":
@@ -288,14 +288,14 @@ def getInfo(session=None, need_fullinfo=False):
 			chipset = "bcm7252S"
 
 	if fileExists("/proc/stb/info/chipset"):
-		f = open("/proc/stb/info/chipset", 'r')
+		f = open("/proc/stb/info/chipset")
 		chipset = f.readline().strip()
 		f.close()
 
 	info['chipset'] = chipset
 
 	memFree = 0
-	for line in open("/proc/meminfo", 'r'):
+	for line in open("/proc/meminfo"):
 		parts = line.split(':')
 		key = parts[0].strip()
 		if key == "MemTotal":
@@ -306,7 +306,7 @@ def getInfo(session=None, need_fullinfo=False):
 	info['mem3'] = _("%s free / %s total") % (info['mem2'], info['mem1'])
 
 	try:
-		f = open("/proc/uptime", "r")
+		f = open("/proc/uptime")
 		uptime = int(float(f.readline().split(' ', 2)[0].strip()))
 		f.close()
 		uptimetext = ''
@@ -754,7 +754,7 @@ def getStatusInfo(self):
 		if six.PY2:
 			desc = desc.decode('utf-8')
 		if len(desc) > 220:
-			desc = desc + u"..."
+			desc = desc + "..."
 		if six.PY2:
 			desc = desc.encode('utf-8')
 		statusinfo['currservice_description'] = desc

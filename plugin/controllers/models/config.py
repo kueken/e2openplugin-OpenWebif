@@ -309,9 +309,9 @@ class ConfigFiles:
 		locations = ('SystemPlugins', 'Extensions')
 		libdir = eEnv.resolve('${libdir}')
 		for location in locations:
-			plugins = listdir(('%s/enigma2/python/Plugins/%s' % (libdir, location)))
+			plugins = listdir('%s/enigma2/python/Plugins/%s' % (libdir, location))
 			for plugin in plugins:
-				setupfiles.append(('%s/enigma2/python/Plugins/%s/%s/setup.xml' % (libdir, location, plugin)))
+				setupfiles.append('%s/enigma2/python/Plugins/%s/%s/setup.xml' % (libdir, location, plugin))
 		for setupfile in setupfiles:
 			if path.exists(setupfile):
 				self.setupfiles.append(setupfile)
@@ -367,7 +367,7 @@ class ConfigFiles:
 		sections = []
 		for setupfile in self.setupfiles:
 			# print("[OpenWebif] loading configuration file :", setupfile)
-			setupfile = open(setupfile, 'r')
+			setupfile = open(setupfile)
 			setupdom = xml.etree.cElementTree.parse(setupfile)  # nosec
 			setupfile.close()
 			xmldata = setupdom.getroot()

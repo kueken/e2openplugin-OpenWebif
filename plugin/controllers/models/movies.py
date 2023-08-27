@@ -658,7 +658,7 @@ def getMovieInfo(sRef=None, addtag=None, deltag=None, title=None, cuts=None, des
 			metafilename = '/' + filename + '.meta'
 			if fileExists(metafilename):
 				lines = []
-				with open(metafilename, 'r') as f:
+				with open(metafilename) as f:
 					lines = f.readlines()
 				if lines:
 					meta = ["", "", "", "", "", "", ""]

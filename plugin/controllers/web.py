@@ -57,7 +57,7 @@ def whoami(request):
 		port = comp_config.OpenWebif.https_port.value
 		proto = 'https'
 	ourhost = request.getHeader('host')
-	m = match('.+\:(\d+)$', ourhost)
+	m = match(r'.+\:(\d+)$', ourhost)
 	if m is not None:
 		port = m.group(1)
 	return {'proto': proto, 'port': port}
@@ -394,7 +394,7 @@ class WebController(BaseController):
 		"""
 		try:
 			# returns 'True' if the image supports the function "Power on without TV":
-			f = open("/tmp/powerup_without_waking_tv.txt", "r")  # nosec
+			f = open("/tmp/powerup_without_waking_tv.txt")  # nosec
 			powerupWithoutWakingTv = f.read()
 			f.close()
 			if ((powerupWithoutWakingTv == 'True') or (powerupWithoutWakingTv == 'False')):

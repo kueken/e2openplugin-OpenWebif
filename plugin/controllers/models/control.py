@@ -40,7 +40,7 @@ except ImportError:
 
 def checkIsQPiP():
 	if os.access(ENABLE_QPIP_PROCPATH, os.F_OK):
-		fd = open(ENABLE_QPIP_PROCPATH, "r")
+		fd = open(ENABLE_QPIP_PROCPATH)
 		data = fd.read()
 		fd.close()
 

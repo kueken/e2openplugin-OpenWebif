@@ -90,7 +90,7 @@ class IpkgController(BaseController):
 	def parseAll(self):
 		map = {}
 		try:
-			for line in open("/tmp/opkg.tmp", 'r'):
+			for line in open("/tmp/opkg.tmp"):
 				if line.startswith('Package:'):
 					package = line.split(":", 1)[1].strip()
 					description = ''
@@ -214,7 +214,7 @@ class IpkgController(BaseController):
 					self.request.write(six.ensure_binary(json.dumps({"result": False, "request": self.request.path, "exception": repr(exc)})))
 			elif self.action == "full":
 				try:
-					data = open("/tmp/opkg.tmp", 'r').read()
+					data = open("/tmp/opkg.tmp").read()
 					self.request.write(six.ensure_binary(data))
 				except Exception as exc:
 					self.request.setResponseCode(http.INTERNAL_SERVER_ERROR)
