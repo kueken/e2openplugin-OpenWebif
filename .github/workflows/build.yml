@@ -37,9 +37,9 @@ jobs:
       - name: Build python 3.9
         run: |
           sudo apt-get -q update
-          sudo apt-get install -y closure-compiler nodejs npm dos2unix gettext python3-sphinx
+          sudo apt-get install -y nodejs npm dos2unix gettext python3-sphinx
           sudo npm install -g jshint
-          pip3 install CT3
+          pip3 install bandit
           pip3 install autopep8
           pip3 install pyOpenSSL
           pip3 install twisted
