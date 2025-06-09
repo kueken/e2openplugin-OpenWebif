@@ -14,14 +14,18 @@ jobs:
         with:
           ref: 'master'
 
+      - name: Install dependencies
+        run: |
+         sudo apt-get -q update
+          sudo apt-get install -y nodejs npm dos2unix gettext
+          npm install -g jshint
+          pip3 install Cheetah3 six autopep8 flake8 bandit
+
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
-
-      - name: Build python 3.10
+          python-version: '3.9'
+      - name: Build python 3.9
         run: |
-          pip3 install Cheetah3
-          pip3 install six
           python -m compileall -l . -r 10 -q
           cheetah compile -R plugin
           python testsuite/evil_eval.py
@@ -32,15 +36,12 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-      - name: Install dependencies
+          python-version: '3.10'
+
+      - name: Build python 3.10
         run: |
-          sudo apt-get -q update
-          sudo apt-get install -y nodejs npm dos2unix gettext python3-sphinx
-          npm install -g jshint
-          pip3 install Cheetah3 six autopep8 sphinxcontrib-httpdomain flake8 bandit sphinxcontrib-napoleon sphinxcontrib-websupport sphinxcontrib-httpdomain
-      - name: Build python 3.9
-        run: |
+          pip3 install Cheetah3
+          pip3 install six
           python -m compileall -l . -r 10 -q
           cheetah compile -R plugin
           python testsuite/evil_eval.py
