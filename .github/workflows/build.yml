@@ -14,10 +14,7 @@ jobs:
         with:
           ref: 'master'
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.10'
-     - name: Install dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get -q update
           sudo apt-get install -y nodejs npm dos2unix gettext
@@ -37,12 +34,6 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.9'
-     - name: Install dependencies
-        run: |
-          sudo apt-get -q update
-          sudo apt-get install -y nodejs npm dos2unix gettext
-          npm install -g jshint
-          pip3 install Cheetah3 six autopep8 flake8 bandit
 
       - name: Build python 3.9
         run: |
