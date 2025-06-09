@@ -33,9 +33,9 @@ Architecture: all
 Section: extra
 Priority: optional
 Maintainer: E2OpenPlugins members
-Homepage: https://github.com/E2OpenPlugins/e2openplugin-OpenWebif
+Homepage: https://github.com/kueken/e2openplugin-OpenWebif
 Depends: python-json, python-cheetah, python-pyopenssl, python-unixadmin, python-misc, python-twisted-web, python-pprint, python-compression, python-ipaddress, python-six (>= 1.14)
-Source: https://github.com/E2OpenPlugins/e2openplugin-OpenWebif
+Source: https://github.com/kueken/e2openplugin-OpenWebif
 EOF
 
 mkdir -p ${P}/usr/lib/enigma2/python/Plugins/Extensions/OpenWebif/
