@@ -38,7 +38,7 @@ jobs:
           sudo apt-get -q update
           sudo apt-get install -y nodejs npm dos2unix gettext python3-sphinx
           npm install -g jshint
-          pip3 install Cheetah3 six autopep8 flake8 bandit sphinxcontrib-napoleon sphinxcontrib-websupport sphinxcontrib-httpdomain
+          pip3 install Cheetah3 six autopep8 sphinxcontrib-httpdomain flake8 bandit sphinxcontrib-napoleon sphinxcontrib-websupport sphinxcontrib-httpdomain
       - name: Build python 3.9
         run: |
           python -m compileall -l . -r 10 -q
