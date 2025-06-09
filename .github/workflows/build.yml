@@ -41,8 +41,8 @@ jobs:
           sudo npm install -g jshint
           pip3 install bandit
           pip3 install autopep8
-          pip3 install pyOpenSSL
-          pip3 install twisted
+          pip3 install flake8
+          pip3 install Cheetah3
           pip3 install sphinx-rtd-theme
           pip3 install sphinxcontrib-napoleon
           pip3 install sphinxcontrib-websupport
