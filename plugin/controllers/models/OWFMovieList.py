@@ -9,11 +9,8 @@ import struct
 
 from enigma import iServiceInformation, eServiceReference, eServiceCenter
 
-from Tools.FuzzyDate import FuzzyTime
 from Components.config import config
-from Tools.Directories import resolveFilename
 from Screens.LocationBox import defaultInhibitDirs
-from ServiceReference import ServiceReference
 
 cutsParser = struct.Struct('>QI')  # big-endian, 64-bit PTS and 32-bit type
 
