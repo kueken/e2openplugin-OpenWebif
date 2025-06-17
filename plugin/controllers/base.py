@@ -390,15 +390,14 @@ class BaseController(resource.Resource):
 						extras.append({'key': plugins[0], 'description': plugins[2], 'nw': '2'})
 					except KeyError:
 						pass
-				elif len(plugins) > 4:
-					if plugins[4] == True:
-						try:
-							if len(plugins) > 5 and plugins[5] == "_self":
-								extras.append({'key': plugins[0], 'description': plugins[2]})
-							else:
-								extras.append({'key': plugins[0], 'description': plugins[2], 'nw': '1'})
-						except KeyError:
-							pass
+				elif len(plugins) > 4 and plugins[4] is True:
+					try:
+						if len(plugins) > 5 and plugins[5] == "_self":
+							extras.append({'key': plugins[0], 'description': plugins[2]})
+						else:
+							extras.append({'key': plugins[0], 'description': plugins[2], 'nw': '1'})
+					except KeyError:
+						pass
 
 		except ImportError:
 			pass
@@ -427,6 +426,6 @@ class BaseController(resource.Resource):
 		smallremote = config.OpenWebif.webcache.smallremote.value if config.OpenWebif.webcache.smallremote.value else 'new'
 		ret['smallremote'] = smallremote
 		ret['textinputsupport'] = TEXTINPUTSUPPORT
-		ret['debugModeEnabled'] = config.OpenWebif.displayTracebacks.value == True
+		ret['debugModeEnabled'] = config.OpenWebif.displayTracebacks.value is True
 
 		return ret
