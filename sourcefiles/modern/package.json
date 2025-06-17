@@ -24,7 +24,7 @@
   "browserslist-preview": "https://browserslist.dev",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "screenfull": "^5.2.0"
+    "screenfull": "^6.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
