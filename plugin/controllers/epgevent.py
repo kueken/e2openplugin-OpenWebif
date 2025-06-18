@@ -24,8 +24,7 @@ from time import time, localtime, gmtime, strftime
 from datetime import datetime, timedelta
 from json import dumps
 
-from enigma import eServiceCenter, eServiceEvent, eServiceReference
-from ServiceReference import ServiceReference
+from enigma import eServiceEvent
 from Components.config import config
 
 from Plugins.Extensions.OpenWebif.controllers.utilities import debug, error
