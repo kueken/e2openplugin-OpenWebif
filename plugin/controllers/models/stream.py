@@ -13,7 +13,7 @@ from ServiceReference import ServiceReference
 from six.moves.urllib.parse import unquote, quote
 from six import ensure_str
 import os
-import re
+from re import match
 from Components.config import config
 from twisted.web.resource import Resource
 from Tools.Directories import fileExists
