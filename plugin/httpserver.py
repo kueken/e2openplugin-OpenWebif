@@ -243,7 +243,7 @@ def HttpdStart(session):
 					ctx.set_verify(
 						SSL.VERIFY_PEER | SSL.VERIFY_FAIL_IF_NO_PEER_CERT,
 						verifyCallback
-						)
+					)
 					ctx.load_verify_locations(CA_FILE)
 
 				sslroot = AuthResource(session, temproot)

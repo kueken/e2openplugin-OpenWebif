@@ -261,7 +261,7 @@ def Plugins(**kwargs):
 	result = [
 		p,
 		PluginDescriptor(where=[PluginDescriptor.WHERE_NETWORKCONFIG_READ], fnc=IfUpIfDown),
-		]
+	]
 	screenwidth = getDesktop(0).size().width()
 	if imagedistro in ("openatv"):
 		result.append(PluginDescriptor(name="OpenWebif", description=_("OpenWebif Configuration"), where=PluginDescriptor.WHERE_MENU, fnc=main_menu))
