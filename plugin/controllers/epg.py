@@ -20,8 +20,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
 ##########################################################################
 
-from datetime import datetime, timedelta
-from json import dumps
+from datetime import datetime
 
 from enigma import eEPGCache, eServiceCenter, eServiceReference
 from ServiceReference import ServiceReference
