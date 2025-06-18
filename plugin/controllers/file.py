@@ -25,7 +25,6 @@ from re import match
 from glob import glob
 from six.moves.urllib.parse import quote
 import json
-from json import dumps
 import six
 
 from twisted.web import static, resource, http
