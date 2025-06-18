@@ -713,7 +713,7 @@ def tvbrowser(session, request):
 		return removeTimer(session, sRef, begin, end, eit=None)
 	elif request.args['command'][0] == "change":
 		del request.args['command'][0]
-		return editTimer(session, sRef, begin, end, name, description, disabled, justplay, afterevent, location, tags, repeated, sref, begin, end)
+		return editTimer(session, sRef, begin, end, name, description, disabled, justplay, afterevent, location, tags, repeated, sRef, begin, end)
 	else:
 		return {
 			"result": False,
