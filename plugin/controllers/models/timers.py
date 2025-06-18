@@ -22,7 +22,6 @@
 
 from __future__ import print_function
 import six
-from enigma import eServiceReference
 from Components.UsageConfig import preferredTimerPath, preferredInstantRecordPath
 from Components.config import config
 from Components.TimerSanityCheck import TimerSanityCheck
