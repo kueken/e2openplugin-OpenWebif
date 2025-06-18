@@ -101,7 +101,7 @@ def getIPv4Method(iface):
 def getLinkSpeed(iface):
 	speed = _("unknown")
 	try:
-		with open('/sys/class/net/' + iface + '/speed") as f:
+		with open('/sys/class/net/' + iface + '/speed') as f:
 			speed = f.read().strip()
 	except:  # nosec # noqa: E722
 		if os.path.isdir('/sys/class/net/' + iface + '/wireless'):
