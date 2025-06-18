@@ -715,7 +715,7 @@ def getMovieInfo(sRef=None, addtag=None, deltag=None, title=None, cuts=None, des
 							newcuts.append({
 								"type": _type,
 								"pos": _pos
-								}
+							}
 							)
 						f.close()
 					except:  # nosec # noqa: E722
@@ -732,7 +732,7 @@ def getMovieInfo(sRef=None, addtag=None, deltag=None, title=None, cuts=None, des
 							newcuts.append({
 								"type": item[0],
 								"pos": item[1]
-								}
+							}
 							)
 						f.close()
 
