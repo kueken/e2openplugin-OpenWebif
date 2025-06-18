@@ -329,12 +329,12 @@ def addTimer(session, serviceref, begin, end, name, description, disabled, justp
 				"normal": True,
 				"descrambled": True,
 				"scrambled": False,
-				}[recordingtype]
+			}[recordingtype]
 			timer.record_ecm = {
 				"normal": False,
 				"descrambled": True,
 				"scrambled": True,
-				}[recordingtype]
+			}[recordingtype]
 
 	except Exception as e:
 		print(str(e))
@@ -440,12 +440,12 @@ def editTimer(session, serviceref, begin, end, name, description, disabled, just
 					"normal": True,
 					"descrambled": True,
 					"scrambled": False,
-					}[recordingtype]
+				}[recordingtype]
 				timer.record_ecm = {
 					"normal": False,
 					"descrambled": True,
 					"scrambled": True,
-					}[recordingtype]
+				}[recordingtype]
 
 			# TODO: multi tuner test
 			sanity = TimerSanityCheck(rt.timer_list, timer)
@@ -713,7 +713,7 @@ def tvbrowser(session, request):
 		return removeTimer(session, sRef, begin, end, eit=None)
 	elif request.args['command'][0] == "change":
 		del request.args['command'][0]
-		return editTimer(session, sRef, begin, end, name, description, disabled, justplay, afterevent, location, tags, repeated, begin, end, serviceref)
+		return editTimer(session, sRef, begin, end, name, description, disabled, justplay, afterevent, location, tags, repeated, sref, begin, end)
 	else:
 		return {
 			"result": False,
