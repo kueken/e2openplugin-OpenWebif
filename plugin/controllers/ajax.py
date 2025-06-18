@@ -186,7 +186,7 @@ class AjaxController(BaseController):
 				"high_resolution": config.OpenWebif.webcache.screenshot_high_resolution.value,
 				"refresh_auto": config.OpenWebif.webcache.screenshot_refresh_auto.value,
 				"refresh_time": config.OpenWebif.webcache.screenshot_refresh_time.value
-				}
+			}
 
 	def P_movies(self, request):
 		movies = getMovieList(request.args)
