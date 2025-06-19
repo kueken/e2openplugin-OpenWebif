@@ -3026,9 +3026,9 @@ $(document).ready(function(){
             var img = $el.find('img');
             var matchStart = $el.text().toLowerCase().indexOf("" + string.toLowerCase() + ""),
                 matchEnd = matchStart + string.length - 1,
-                beforeMatch = $el.text().slice(0, matchStart),
-                matchText = $el.text().slice(matchStart, matchEnd + 1),
-                afterMatch = $el.text().slice(matchEnd + 1);
+                beforeMatch = DOMPurify.sanitize($el.text().slice(0, matchStart)),
+                matchText = DOMPurify.sanitize($el.text().slice(matchStart, matchEnd + 1)),
+                afterMatch = DOMPurify.sanitize($el.text().slice(matchEnd + 1));
             $el.html("<span>" + beforeMatch + "<span class='highlight'>" + matchText + "</span>" + afterMatch + "</span>");
             if (img.length) {
               $el.prepend(img);
