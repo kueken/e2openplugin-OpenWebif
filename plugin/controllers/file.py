@@ -68,9 +68,10 @@ class FileController(resource.Resource):
 				ourhost = request.getHeader('host')
 				m = match(r'.+\:(\d+)$', ourhost)
 				if m is not None:
-					port = m.group(1)
+					port = html.escape(m.group(1))
 
 				from html import escape
+				from html import escape as html_escape
 				escaped_name = escape(name)
 				escaped_hostname = escape(request.getRequestHostname().decode('ascii'))
 				response = "#EXTM3U\n#EXTVLCOPT:http-reconnect=true\n#EXTINF:-1,%s\n%s://%s:%s/file?action=download&file=%s" % (escaped_name, proto, escaped_hostname, port, quote(filename))
