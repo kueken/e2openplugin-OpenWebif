@@ -82,11 +82,12 @@ class RESTControllerSkeleton(resource.Resource):
         request.setHeader(
             'Access-Control-Allow-Origin', CORS_DEFAULT_ALLOW_ORIGIN)
 
+        from html import escape
         data = {
             "_controller": self.__class__.__name__,
-            "request_postpath": request.postpath,
+            "request_postpath": escape(str(request.postpath)),
             "method": request.method,
-            "request_path": request.path,
+            "request_path": escape(request.path),
         }
 
         return json_response(request, data)
@@ -103,11 +104,12 @@ class RESTControllerSkeleton(resource.Resource):
         request.setHeader(
             'Access-Control-Allow-Origin', CORS_DEFAULT_ALLOW_ORIGIN)
 
+        from html import escape
         data = {
             "_controller": self.__class__.__name__,
-            "request_postpath": request.postpath,
+            "request_postpath": escape(str(request.postpath)),
             "method": request.method,
-            "request_path": request.path,
+            "request_path": escape(request.path),
         }
 
         return json_response(request, data)
