@@ -8851,6 +8851,10 @@ $.extend( Datepicker.prototype, {
 			// Validate altField to ensure it is a safe selector or DOM element
 			try {
 				if ( typeof altField === "string" ) {
+					// Reject altField if it starts with "<" to prevent HTML interpretation
+					if ( altField.trim().startsWith("<") ) {
+						throw new Error( "altField cannot start with '<' to prevent potential XSS: " + altField );
+					}
 					// Ensure altField is a valid CSS selector
 					if ( $( altField ).length === 0 ) {
 						throw new Error( "Invalid altField selector: " + altField );
