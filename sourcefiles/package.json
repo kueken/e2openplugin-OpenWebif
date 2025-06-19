@@ -28,8 +28,9 @@
     "preinstall": "npx npm-force-resolutions",
     "build-classic-js": "npx glob-uglifyjs -c ./classic-glob-uglifyjs.config",
     "build-js": "npm run build-prod --prefix modern",
-    "build-css": "node ./_utils/mincss.js -o '../plugin/public/' './modern/css/**/*.css'",
-    "build-classic-css": "node-sass './scss/style.scss' '../plugin/public/css/style.min.css' --output-style compressed",
+    "prepare-modern-css": "sass ./modern/modern-scss/style.scss ./modern/css/style.css && postcss ./modern/css/style.css --use autoprefixer -o ./modern/css/style.css",
+    "build-css": "npm run prepare-modern-css && node ./_utils/mincss.js -o '../plugin/public/' './modern/css/**/*.css' && rm ./modern/css/style.css",
+    "build-classic-css": "sass './scss/style.scss' './scss/temp.css' && lightningcss --minify './scss/temp.css' -o '../plugin/public/css/style.min.css' && rm ./scss/temp.css",
     "test": "echo 'Error: no test specified!' && exit 1"
   },
   "repository": {
