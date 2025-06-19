@@ -5153,7 +5153,7 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
             // If the element has a value, set the hidden value as well.
             (
                 $ELEMENT.data('value') || ELEMENT.value ?
-                    ' value="' + P.get('select', SETTINGS.formatSubmit) + '"' :
+                    ' value="' + DOMPurify.sanitize(P.get('select', SETTINGS.formatSubmit)) + '"' :
                     ''
             ) +
             '>'
