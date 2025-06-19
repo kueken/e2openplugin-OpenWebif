@@ -722,7 +722,13 @@
       }
 
       //strip all html-tags and trim the result
-      this.$button.attr('title', $.trim(title.replace(/<[^>]*>?/g, '')));
+      let sanitizedTitle = title;
+      let previousTitle;
+      do {
+        previousTitle = sanitizedTitle;
+        sanitizedTitle = sanitizedTitle.replace(/<[^>]*>?/g, '');
+      } while (sanitizedTitle !== previousTitle);
+      this.$button.attr('title', $.trim(sanitizedTitle));
       this.$button.children('.filter-option').html(title);
 
       this.$element.trigger('rendered.bs.select');
