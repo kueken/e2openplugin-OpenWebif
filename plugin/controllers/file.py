@@ -70,8 +70,11 @@ class FileController(resource.Resource):
 				if m is not None:
 					port = m.group(1)
 
-				response = "#EXTM3U\n#EXTVLCOPT:http-reconnect=true\n#EXTINF:-1,%s\n%s://%s:%s/file?action=download&file=%s" % (name, proto, request.getRequestHostname(), port, quote(filename))
-				request.setHeader("Content-Disposition", 'attachment;filename="%s.m3u"' % name)
+				from html import escape
+				escaped_name = escape(name)
+				escaped_hostname = escape(request.getRequestHostname().decode('ascii'))
+				response = "#EXTM3U\n#EXTVLCOPT:http-reconnect=true\n#EXTINF:-1,%s\n%s://%s:%s/file?action=download&file=%s" % (escaped_name, proto, escaped_hostname, port, quote(filename))
+				request.setHeader("Content-Disposition", 'attachment;filename="%s.m3u"' % escaped_name)
 				request.setHeader("Content-Type", "application/x-mpegurl")
 				return response
 			elif action == "delete":
