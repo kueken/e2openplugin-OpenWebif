@@ -80,7 +80,7 @@ def decrypt_block(src, mod):
 	if len(src) != 128 and len(src) != 202:
 		return None
 	dest = rsa_pub1024(src[:128], mod)
-	hash = hashlib.sha1(dest[1:107])
+	hash = hashlib.sha256(dest[1:107])
 	if len(src) == 202:
 		hash.update(src[131:192])
 	result = hash.digest()
