@@ -8848,6 +8848,21 @@ $.extend( Datepicker.prototype, {
 			altField = this._get( inst, "altField" );
 
 		if ( altField ) { // update alternate field too
+			// Validate altField to ensure it is a safe selector or DOM element
+			try {
+				if ( typeof altField === "string" ) {
+					// Ensure altField is a valid CSS selector
+					if ( $( altField ).length === 0 ) {
+						throw new Error( "Invalid altField selector: " + altField );
+					}
+				} else if ( !( altField instanceof HTMLElement ) ) {
+					throw new Error( "altField must be a valid CSS selector or DOM element." );
+				}
+			} catch ( error ) {
+				console.error( error.message );
+				return;
+			}
+
 			altFormat = this._get( inst, "altFormat" ) || this._get( inst, "dateFormat" );
 			date = this._getDate( inst );
 			dateStr = this.formatDate( altFormat, date, this._getFormatConfig( inst ) );
