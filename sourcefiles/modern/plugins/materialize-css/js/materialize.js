@@ -3,6 +3,7 @@
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+import DOMPurify from 'dompurify';
 // Check for jQuery.
 if (typeof(jQuery) === 'undefined') {
   var jQuery;
@@ -3053,7 +3054,8 @@ $(document).ready(function(){
                     key.toLowerCase() !== val) {
                   var autocompleteOption = $('<li></li>');
                   if(!!data[key]) {
-                    autocompleteOption.append('<img src="'+ data[key] +'" class="right circle"><span>'+ key +'</span>');
+                    var sanitizedImgSrc = DOMPurify.sanitize(data[key]);
+                    autocompleteOption.append('<img src="'+ sanitizedImgSrc +'" class="right circle"><span>'+ key +'</span>');
                   } else {
                     autocompleteOption.append('<span>'+ key +'</span>');
                   }
