@@ -28,4 +28,5 @@ jobs:
 
       - name: Run Ruff
         run: |
+          ruff check script.py
           ruff check --fix script.py.
