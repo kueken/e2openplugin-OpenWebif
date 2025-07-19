@@ -735,11 +735,11 @@ def getPowerTimer(session, request):
 
 		pos = 0
 		for timer in timer_list + processed_timers:
-			list = []
+			_list = []
 			pos += 1
 			if logs:
 				for _time, code, msg in timer.log_entries:
-					list.append({
+					_list.append({
 						"code": str(code),
 						"time": str(_time),
 						"msg": str(msg)
@@ -773,7 +773,7 @@ def getPowerTimer(session, request):
 				"autosleepinstandbyonly": str(timer.autosleepinstandbyonly),
 				"autosleepdelay": str(timer.autosleepdelay),
 				"autosleeprepeat": str(timer.autosleeprepeat),
-				"logentries": list
+				"logentries": _list
 			})
 
 		return {
