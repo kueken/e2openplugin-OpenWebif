@@ -67,7 +67,7 @@ class BQEWebController(BaseController):
 			if k in args:
 				list[key] = six.ensure_str(args[k][0])
 			else:
-				list[key] = cond is None
+				list[key] = None
 		return list
 
 	def prePageLoad(self, request):

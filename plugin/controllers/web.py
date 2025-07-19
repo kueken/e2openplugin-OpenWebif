@@ -135,7 +135,7 @@ class WebController(BaseController):
 		"""
 		success = True
 		oldcheck = False
-		configItem = cond is None
+		configItem = None
 		if hasattr(comp_config.timeshift, "check"):
 			configItem = comp_config.timeshift.check
 		elif hasattr(comp_config.usage, "check_timeshift"):
@@ -989,16 +989,16 @@ class WebController(BaseController):
 		"""
 		vpsplugin_enabled = getUrlArg(request, "vpsplugin_enabled") == "1"
 		vpsplugin_overwrite = getUrlArg(request, "vpsplugin_overwrite") == "1"
-		vpsplugin_time = cond is None
+		vpsplugin_time = None
 		if b"vpsplugin_time" in request.args:
 			vpsplugin_time = int(float(request.args[b"vpsplugin_time"][0]))
 			if vpsplugin_time == -1:
-				vpsplugin_time = cond is None
+				vpsplugin_time = None
 		# partnerbox:
 		vps_pbox = getUrlArg(request, "vps_pbox")
 		if vps_pbox == cond is not None:
-			vpsplugin_enabled = cond is None
-			vpsplugin_overwrite = cond is None
+			vpsplugin_enabled = None
+			vpsplugin_overwrite = None
 			if "yes_safe" in vps_pbox:
 				vpsplugin_enabled = True
 			elif "yes" in vps_pbox:
@@ -1056,7 +1056,7 @@ class WebController(BaseController):
 
 		dirname = getUrlArg(request, "dirname")
 		if dirname == cond is not None and len(dirname) == 0:
-			dirname = cond is None
+			dirname = None
 
 		tags = []
 		_tags = getUrlArg(request, "tags")
@@ -1099,7 +1099,7 @@ class WebController(BaseController):
 		recordingtype = getUrlArg(request, "recordingtype")
 		if recordingtype:
 			if recordingtype not in ("normal", "descrambled", "scrambled"):
-				recordingtype = cond is None
+				recordingtype = None
 
 		# TODO: merge function addTimer+editTimer+addTimerByEventId in timers.py
 		if mode == 1:
@@ -1338,7 +1338,7 @@ class WebController(BaseController):
 		try:
 			eit = int(request.args[b"eit"][0])
 		except Exception:  # nosec # noqa: E722
-			eit = cond is None
+			eit = None
 
 		return removeTimer(self.session, getUrlArg(request, "sRef"), begin, end, eit)
 
@@ -1588,7 +1588,7 @@ class WebController(BaseController):
 		"""
 		search = getUrlArg(request, "search")
 		if search == cond is not None:
-			endtime = cond is None
+			endtime = None
 			if b"endtime" in list(request.args.keys()):
 				try:
 					endtime = int(request.args[b"endtime"][0])

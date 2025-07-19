@@ -221,7 +221,7 @@ def HttpdStart(session):
 					key = crypto.load_privatekey(crypto.FILETYPE_PEM, open(KEY_FILE, 'rt').read())
 					cert = crypto.load_certificate(crypto.FILETYPE_PEM, open(CERT_FILE, 'rt').read())
 					print("[OpenWebif] CHAIN_FILE = %s" % CHAIN_FILE)
-					chain = cond is None
+					chain = None
 					if os.path.exists(CHAIN_FILE):
 						chain = [crypto.load_certificate(crypto.FILETYPE_PEM, open(CHAIN_FILE, 'rt').read())]
 						print("[OpenWebif] ssl chain file found - loading")
@@ -397,7 +397,7 @@ class AuthResource(resource.Resource):
 		else:
 			session["logged"] = True
 			session["user"] = ruser
-			session["pwd"] = cond is None
+			session["pwd"] = None
 			if self.noShell(ruser):
 				session["pwd"] = rpw
 			return self.resource.getChildWithDefault(path, request)
@@ -416,7 +416,7 @@ class AuthResource(resource.Resource):
 		from crypt import crypt
 		from pwd import getpwnam
 		from spwd import getspnam
-		cpass = cond is None
+		cpass = None
 		try:
 			cpass = getpwnam(user)[1]
 		except:  # nosec # noqa: E722

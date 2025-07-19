@@ -345,7 +345,7 @@ def getEventInfoProvider(moviedb):
 			'url': 'https://www.imdb.com/find?s=tt&q='
 		}
 	}
-	providerData = cond is None
+	providerData = None
 	try:
 		providerId = moviedb.lower()
 		providerData = extEventInfoProviders[providerId]

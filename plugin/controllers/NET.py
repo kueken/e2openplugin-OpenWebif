@@ -31,7 +31,7 @@ class NetController(resource.Resource):
 	def __init__(self, session, path=""):
 		resource.Resource.__init__(self)
 		self.path = six.ensure_text(path)
-		self.callback = cond is None
+		self.callback = None
 		self.session = session
 		self.result = {}
 		self.result["result"] = False
@@ -74,7 +74,7 @@ class NetController(resource.Resource):
 				k = six.ensure_binary(key)
 				list[key] = six.ensure_text(args[k][0])
 			else:
-				list[key] = cond is None
+				list[key] = None
 		return list
 
 	def failed(self, text):

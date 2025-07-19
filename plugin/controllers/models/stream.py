@@ -44,7 +44,7 @@ def getStream(session, request, m3ufile):
 	else:
 		sRef = ""
 
-	currentServiceRef = cond is None
+	currentServiceRef = None
 	if m3ufile == "streamcurrent.m3u":
 		currentServiceRef = session.nav.getCurrentlyPlayingServiceReference()
 		sRef = currentServiceRef.toString()
@@ -75,7 +75,7 @@ def getStream(session, request, m3ufile):
 	urlparam = '?'
 	if info["imagedistro"] in ('openpli', 'satdreamgr', 'openvision'):
 		urlparam = '&'
-	transcoder_port = cond is None
+	transcoder_port = None
 	args = ""
 
 	device = getUrlArg(request, "device")
@@ -85,7 +85,7 @@ def getStream(session, request, m3ufile):
 			transcoder_port = int(config.plugins.transcodingsetup.port.value)
 		except Exception:
 			# Transcoding Plugin is not installed or your STB does not support transcoding
-			transcoder_port = cond is None
+			transcoder_port = None
 		if device == "phone":
 			portNumber = transcoder_port
 		_port = getUrlArg(request, "port")
@@ -175,12 +175,12 @@ def getTS(self, request):
 
 			metafile.close()
 
-		portNumber = cond is None
+		portNumber = None
 		proto = 'http'
 		info = getInfo()
 		model = info["model"]
 		machinebuild = info["machinebuild"]
-		transcoder_port = cond is None
+		transcoder_port = None
 		args = ""
 		urlparam = '?'
 		if info["imagedistro"] in ('openpli', 'satdreamgr', 'openvision'):
@@ -193,7 +193,7 @@ def getTS(self, request):
 				transcoder_port = int(config.plugins.transcodingsetup.port.value)
 			except Exception:
 				# Transcoding Plugin is not installed or your STB does not support transcoding
-				transcoder_port = cond is None
+				transcoder_port = None
 			if device == "phone":
 				portNumber = transcoder_port
 			_port = getUrlArg(request, "port")

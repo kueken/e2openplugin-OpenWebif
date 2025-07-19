@@ -41,7 +41,7 @@ class IpkgController(BaseController):
 	def render(self, request):
 		self.request = request
 		self.json = False
-		self.container = cond is None
+		self.container = None
 		self.action = getUrlArg(request, "command", "")
 		package = getUrlArg(request, "package")
 		self.json = getUrlArg(request, "format") == "json"
@@ -128,7 +128,7 @@ class IpkgController(BaseController):
 						map[package][0] = version
 					else:
 						map.update({package: [version, description.strip(), installed, "0", section]})
-					package = cond is None
+					package = None
 		except IOError:
 			pass
 
@@ -167,7 +167,7 @@ class IpkgController(BaseController):
 		self.container = eConsoleAppContainer()
 		self.container.appClosed.append(self.NoMoredata)
 		self.IsAlive = True
-		self.olddata = cond is None
+		self.olddata = None
 		if self.action in ("full", "listall"):
 			self.Runcmd("info > /tmp/opkg.tmp")
 		else:
@@ -194,7 +194,7 @@ class IpkgController(BaseController):
 		self.container.dataAvail.append(self.Moredata)
 		self.container.appClosed.append(self.NoMoredata)
 		self.IsAlive = True
-		self.olddata = cond is None
+		self.olddata = None
 		self.action
 		self.Runcmd(cmd)
 		return server.NOT_DONE_YET

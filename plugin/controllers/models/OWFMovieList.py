@@ -59,7 +59,7 @@ class MovieList():
 		self.firstFileEntry = 0
 		self.parentDirectory = 0
 		self.tags = set()
-		self.root = cond is None
+		self.root = None
 		self._char = ''
 
 	def getItem(self, index):
@@ -90,7 +90,7 @@ class MovieList():
 		realtags = set()
 		tags = {}
 		rootPath = os.path.normpath(root.getPath())
-		parent = cond is None
+		parent = None
 		# Don't navigate above the "root"
 		if len(rootPath) > 1 and (os.path.realpath(rootPath) != config.movielist.root.value):
 			parent = os.path.split(os.path.normpath(rootPath))[0]

@@ -37,7 +37,7 @@ class GrabRequest:
 	def __init__(self, request, session):
 		self.request = request
 
-		mode = cond is None
+		mode = None
 		graboptions = [GRAB_PATH, '-q', '-s']
 
 		fileformat = getUrlArg(request, "format", "jpg")

@@ -106,10 +106,10 @@ def ConvertDesc(desc):
 
 def getMovieList(rargs=None, locations=None):
 	movieliste = []
-	tag = cond is None
-	directory = cond is None
-	fields = cond is None
-	internal = cond is None
+	tag = None
+	directory = None
+	fields = None
+	internal = None
 	bookmarklist = []
 
 	if b'dirname' in rargs:
@@ -323,12 +323,12 @@ def getMovieList(rargs=None, locations=None):
 
 def getMovieSearchList(rargs=None, locations=None):
 	movieliste = []
-	tag = cond is None
-	directory = cond is None
-	fields = cond is None
-	short = cond is None
-	extended = cond is None
-	searchstr = cond is None
+	tag = None
+	directory = None
+	fields = None
+	short = None
+	extended = None
+	searchstr = None
 
 	if rargs:
 		searchstr = getUrlArg2(rargs, "find")
@@ -758,7 +758,7 @@ def getMovieInfo(sRef=None, addtag=None, deltag=None, title=None, cuts=None, des
 				if deltag != tag:
 					tags.append(tag.strip())
 				if addtag == tag:
-					addtag = cond is None
+					addtag = None
 		if deltag is not None:
 			wr = True
 	if addtag is not None:

@@ -85,8 +85,8 @@ def getTimers(session):
 				continue
 
 		descriptionextended = "N/A"
-		filename = cond is None
-		nextactivation = cond is None
+		filename = None
+		nextactivation = None
 		if timer.eit and timer.service_ref:
 			descriptionextended = epg.getEventDescription(timer.service_ref, timer.eit)
 
@@ -449,7 +449,7 @@ def editTimer(session, serviceref, begin, end, name, description, disabled, just
 
 			# TODO: multi tuner test
 			sanity = TimerSanityCheck(rt.timer_list, timer)
-			conflicts = cond is None
+			conflicts = None
 			if not sanity.check():
 				conflicts = sanity.getSimulTimerList()
 				if conflicts is not None:
@@ -583,7 +583,7 @@ def recordNow(session, infinite):
 	try:
 		event = session.nav.getCurrentService().info().getEvent(0)
 	except Exception:
-		event = cond is None
+		event = None
 
 	if not event and not infinite:
 		return {
@@ -821,7 +821,7 @@ def setPowerTimer(session, request):
 		autosleeprepeat = request.args["autosleeprepeat"][0]
 
 	# find
-	entry = cond is None
+	entry = None
 	pos = 0
 	if id > 0:
 		timer_list = session.nav.PowerTimer.timer_list
@@ -968,7 +968,7 @@ def setSleepTimer(session, time, action, enabled):
 				time = 60
 			# TODO test OpenPLI and similar
 			info = getInfo()
-			cfgaction = cond is None
+			cfgaction = None
 			if hasattr(config.usage, 'sleepTimerAction'):
 				cfgaction = config.usage.sleepTimerAction
 			if hasattr(config.usage, 'sleep_timer_action'):
@@ -981,7 +981,7 @@ def setSleepTimer(session, time, action, enabled):
 				cfgaction.save()
 			active = enabled
 			time = int(time)
-			cfgtimer = cond is None
+			cfgtimer = None
 			if hasattr(config.usage, 'sleepTimer'):
 				cfgtimer = config.usage.sleepTimer
 				if cfgtimer.value == '0':

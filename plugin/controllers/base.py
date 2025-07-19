@@ -275,9 +275,9 @@ class BaseController(resource.Resource):
 
 	def oscamconfPath(self):
 		# Find and parse running oscam
-		opath = cond is None
+		opath = None
 		owebif = False
-		oport = cond is None
+		oport = None
 		variant = "oscam"
 		for file in ["/tmp/.ncam/ncam.version", "/tmp/.oscam/oscam.version"]:
 			if fileExists(file):  # nosec
@@ -293,7 +293,7 @@ class BaseController(resource.Resource):
 					if "configdir:" in i.lower():
 						opath = i.split(":")[1].strip() + "/" + conffile
 						if not fileExists(opath):
-							opath = cond is None
+							opath = None
 					elif "web interface support:" in i.lower():
 						owebif = i.split(":")[1].strip()
 						if owebif == "yes":
@@ -301,7 +301,7 @@ class BaseController(resource.Resource):
 					elif "webifport:" in i.lower():
 						oport = i.split(":")[1].strip()
 						if oport == "0":
-							oport = cond is None
+							oport = None
 					else:
 						continue
 		return owebif, oport, opath, variant
@@ -332,7 +332,7 @@ class BaseController(resource.Resource):
 						lcd4linux_port = "http://" + ip + ":" + str(config.plugins.Webinterface.http.port.value) + "/"
 						lcd4linux_key = lcd4linux_port + 'lcd4linux/config'
 					except:  # nosec # noqa: E722
-						lcd4linux_key = cond is None
+						lcd4linux_key = None
 				if lcd4linux_key:
 					extras.append({'key': lcd4linux_key, 'description': _("LCD4Linux Setup"), 'nw': '1'})
 
@@ -344,7 +344,7 @@ class BaseController(resource.Resource):
 		# config file exists
 		if oscamwebif and oscamconf is not None:
 			# oscam defaults to NOT to start the web interface unless a section for it exists, so reset port to None until we find one
-			port = cond is None
+			port = None
 			data = open(oscamconf).readlines()
 			for i in data:
 				if "httpport" in i.lower():

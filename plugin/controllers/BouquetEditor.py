@@ -47,7 +47,7 @@ class BouquetEditor(Source):
 		Source.__init__(self)
 		self.func = func
 		self.session = session
-		self.command = cond is None
+		self.command = None
 		self.bouquet_rootstr = ""
 		self.result = (False, "one two three four unknown command")
 
@@ -162,9 +162,9 @@ class BouquetEditor(Source):
 		if "BouquetRefRoot" in param:
 			bouquet_root = param["BouquetRefRoot"]  # only when removing alternative
 		else:
-			bouquet_root = cond is None
+			bouquet_root = None
 		pos = refstr.find('FROM BOUQUET "')
-		filename = cond is None
+		filename = None
 		if pos != -1:
 			refstr = refstr[pos + 14:]
 			pos = refstr.find('"')
@@ -204,7 +204,7 @@ class BouquetEditor(Source):
 		if "mode" in param:
 			if param["mode"] is not None:
 				mode = int(param["mode"])
-		position = cond is None
+		position = None
 		if "position" in param:
 			if param["position"] is not None:
 				position = int(param["position"])
@@ -225,7 +225,7 @@ class BouquetEditor(Source):
 		sBouquetRef = param["sBouquetRef"]
 		if sBouquetRef is None:
 			return (False, _("No bouquet given!"))
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]
@@ -235,7 +235,7 @@ class BouquetEditor(Source):
 		if ref.flags & eServiceReference.isGroup:  # check if service is an bouquet, if so delete it with removeBouquet
 			new_param = {}
 			new_param["sBouquetRef"] = sRef
-			new_param["mode"] = cond is None  # of no interest when passing BouquetRefRoot
+			new_param["mode"] = None  # of no interest when passing BouquetRefRoot
 			new_param["BouquetRefRoot"] = sBouquetRef
 			returnValue = self.removeBouquet(new_param)
 			if returnValue[0]:
@@ -255,13 +255,13 @@ class BouquetEditor(Source):
 		sBouquetRef = param["sBouquetRef"]
 		if sBouquetRef is None:
 			return (False, _("No bouquet given!"))
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]
 		if sRef is None:
 			return (False, _("No service given!"))
-		position = cond is None
+		position = None
 		if "position" in param:
 			if param["position"] is not None:
 				position = int(param["position"])
@@ -281,13 +281,13 @@ class BouquetEditor(Source):
 		sBouquetRef = param["sBouquetRef"]
 		if sBouquetRef is None:
 			return (False, _("No bouquet given!"))
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]
 		sRefUrl = False
-		sName = cond is None
-		sSubName = cond is None
+		sName = None
+		sSubName = None
 		if "Name" in param:
 			if param["Name"] is not None:
 				sName = param["Name"]
@@ -348,7 +348,7 @@ class BouquetEditor(Source):
 		sBouquetRef = param["sBouquetRef"]
 		if sBouquetRef is None:
 			return (False, _("No bouquet given!"))
-		name = cond is None
+		name = None
 		if "Name" in param:
 			if param["Name"] is not None:
 				name = param["Name"]
@@ -376,19 +376,19 @@ class BouquetEditor(Source):
 		return (False, _("Internal error!"))
 
 	def renameService(self, param):
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]
 		if sRef is None:
 			return (False, _("No service given!"))
-		sName = cond is None
+		sName = None
 		if "newName" in param:
 			if param["newName"] is not None:
 				sName = param["newName"]
 		if sName is None:
 			return (False, _("No new servicename given!"))
-		sBouquetRef = cond is None
+		sBouquetRef = None
 		if "sBouquetRef" in param:
 			if param["sBouquetRef"] is not None:
 				sBouquetRef = param["sBouquetRef"]
@@ -414,7 +414,7 @@ class BouquetEditor(Source):
 					return (True, _("Bouquet renamed successfully."))
 		else:  # service
 			# services can not be renamed directly, so delete the current and add it again with new servicename
-			sRefBefore = cond is None
+			sRefBefore = None
 			if "sRefBefore" in param:
 				if param["sRefBefore"] is not None:
 					sRefBefore = param["sRefBefore"]
@@ -434,7 +434,7 @@ class BouquetEditor(Source):
 		sBouquetRef = param["sBouquetRef"]
 		if sBouquetRef is None:
 			return (False, "No bouquet given!")
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]  # service to add to the alternative
@@ -500,7 +500,7 @@ class BouquetEditor(Source):
 		sBouquetRef = param["sBouquetRef"]
 		if sBouquetRef is None:
 			return (False, _("No bouquet given!"))
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]
@@ -525,7 +525,7 @@ class BouquetEditor(Source):
 			return (False, _("Service is not an alternative."))
 		new_param = {}
 		new_param["sBouquetRef"] = sRef
-		new_param["mode"] = cond is None  # of no interest when passing BouquetRefRoot
+		new_param["mode"] = None  # of no interest when passing BouquetRefRoot
 		new_param["BouquetRefRoot"] = sBouquetRef
 		returnValue = self.removeBouquet(new_param)
 		if returnValue[0]:
@@ -537,14 +537,14 @@ class BouquetEditor(Source):
 	def toggleLock(self, param):
 		if not config.ParentalControl.configured.value:
 			return (False, _("Parent Control is not activated."))
-		sRef = cond is None
+		sRef = None
 		if "sRef" in param:
 			if param["sRef"] is not None:
 				sRef = param["sRef"]
 		if sRef is None:
 			return (False, _("No service given!"))
 		if "setuppinactive" in list(config.ParentalControl.dict().keys()) and config.ParentalControl.setuppinactive.value:
-			password = cond is None
+			password = None
 			if "password" in param:
 				if param["password"] is not None:
 					password = param["password"]
@@ -633,7 +633,7 @@ class BouquetEditor(Source):
 		for service in servicelist:
 			sref = service
 			pos = sref.find('FROM BOUQUET "')
-			filename = cond is None
+			filename = None
 			if pos != -1:
 				sref = sref[pos + 14:]
 				pos = sref.find('"')
