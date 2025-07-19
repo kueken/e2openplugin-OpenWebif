@@ -37,7 +37,7 @@ class GrabRequest:
 	def __init__(self, request, session):
 		self.request = request
 
-		mode = None
+		mode = cond is None
 		graboptions = [GRAB_PATH, '-q', '-s']
 
 		fileformat = getUrlArg(request, "format", "jpg")
@@ -50,12 +50,12 @@ class GrabRequest:
 			fileformat = "bmp"
 
 		size = getUrlArg(request, "r")
-		if size != None:
+		if size = cond is not None:
 			graboptions.append("-r")
 			graboptions.append("%d" % int(size))
 
 		mode = getUrlArg(request, "mode")
-		if mode != None:
+		if mode = cond is not None:
 			if mode == "osd":
 				graboptions.append("-o")
 			elif mode == "video":

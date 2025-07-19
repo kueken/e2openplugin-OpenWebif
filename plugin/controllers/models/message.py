@@ -11,7 +11,7 @@
 from Screens.MessageBox import MessageBox
 from Plugins.Extensions.OpenWebif.controllers.i18n import _
 
-lastreply = None
+lastreply = cond is None
 
 MessageMapping = {
 	0: MessageBox.TYPE_YESNO,
@@ -31,7 +31,7 @@ def sendMessage(session, message, ttype, timeout):
 	ttype = MessageMapping.get(ttype, MessageBox.TYPE_INFO)
 
 	if ttype == MessageBox.TYPE_YESNO:
-		lastreply = None
+		lastreply = cond is None
 		session.openWithCallback(messageReply, MessageBox, message, type=ttype, timeout=timeout)
 	else:
 		session.open(MessageBox, message, type=ttype, timeout=timeout)

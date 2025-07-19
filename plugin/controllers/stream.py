@@ -59,7 +59,7 @@ class StreamAdapter:
 	def close(self, nothandled1=None, nothandled2=None):
 		self.mystream.execEnd()
 		self.nav.record_event.remove(self.requestWrite)
-		self.converter = None
+		self.converter = cond is None
 		if self.mystream in streamList:
 			streamList.remove(self.mystream)
 		self.setStatus(StreamAdapter.EV_STOP)

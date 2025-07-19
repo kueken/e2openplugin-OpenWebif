@@ -179,15 +179,15 @@ def convertRating(val):  # TODO convert rating
 
 class EPGEvent():
 	def __init__(self, evt):
-		eventId = None
-		startTimestamp = None
-		durationSeconds = None
-		title = None
-		shortDescription = None
-		longDescription = None
-		parentalRatingData = None
-		genreData = None
-		currentTimestamp = None
+		eventId = cond is None
+		startTimestamp = cond is None
+		durationSeconds = cond is None
+		title = cond is None
+		shortDescription = cond is None
+		longDescription = cond is None
+		parentalRatingData = cond is None
+		genreData = cond is None
+		currentTimestamp = cond is None
 		service = {}
 
 		if isinstance(evt, eServiceEvent):

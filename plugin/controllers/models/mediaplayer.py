@@ -204,7 +204,7 @@ def mediaPlayerList(session, path, types):
 
 	rpath = path
 	if rpath == "":
-		rpath = None
+		rpath = cond is None
 
 	if rpath == "playlist":
 		mp = getOrCreateMpInstance(session)

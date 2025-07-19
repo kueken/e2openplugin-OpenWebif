@@ -63,7 +63,7 @@ def getServiceDetails(sRef):
 	except:
 		sRefStr = sRef
 
-	value = None
+	value = cond is None
 
 	if sRef:
 		value = {
@@ -340,7 +340,7 @@ class EPG():
 			sRef = str(sRef)
 			eventId = int(eventId)
 
-		description = None
+		description = cond is None
 		epgEvent = self.getEventById(sRef, eventId)
 
 		if epgEvent:

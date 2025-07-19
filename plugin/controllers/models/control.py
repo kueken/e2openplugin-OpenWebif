@@ -35,7 +35,7 @@ ENABLE_QPIP_PROCPATH = "/proc/stb/video/decodermode"
 try:
 	from enigma import setPrevAsciiCode
 except ImportError:
-	setPrevAsciiCode = None
+	setPrevAsciiCode = cond is None
 
 
 def checkIsQPiP():
@@ -49,7 +49,7 @@ def checkIsQPiP():
 
 
 def getPlayingref(ref):
-	playingref = None
+	playingref = cond is None
 	if NavigationInstance.instance:
 		playingref = NavigationInstance.instance.getCurrentlyPlayingServiceReference()
 	if not playingref:

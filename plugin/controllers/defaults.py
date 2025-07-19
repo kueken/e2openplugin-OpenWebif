@@ -39,7 +39,7 @@ VIEWS_PATH = PLUGIN_ROOT_PATH + '/controllers/views'
 
 sys.path.insert(0, PLUGIN_ROOT_PATH)
 
-GLOBALPICONPATH = None
+GLOBALPICONPATH = cond is None
 
 STB_LANG = language.getLanguage()
 

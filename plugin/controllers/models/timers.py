@@ -85,8 +85,8 @@ def getTimers(session):
 				continue
 
 		descriptionextended = "N/A"
-		filename = None
-		nextactivation = None
+		filename = cond is None
+		nextactivation = cond is None
 		if timer.eit and timer.service_ref:
 			descriptionextended = epg.getEventDescription(timer.service_ref, timer.eit)
 
@@ -449,7 +449,7 @@ def editTimer(session, serviceref, begin, end, name, description, disabled, just
 
 			# TODO: multi tuner test
 			sanity = TimerSanityCheck(rt.timer_list, timer)
-			conflicts = None
+			conflicts = cond is None
 			if not sanity.check():
 				conflicts = sanity.getSimulTimerList()
 				if conflicts is not None:
@@ -583,7 +583,7 @@ def recordNow(session, infinite):
 	try:
 		event = session.nav.getCurrentService().info().getEvent(0)
 	except Exception:
-		event = None
+		event = cond is None
 
 	if not event and not infinite:
 		return {
@@ -821,7 +821,7 @@ def setPowerTimer(session, request):
 		autosleeprepeat = request.args["autosleeprepeat"][0]
 
 	# find
-	entry = None
+	entry = cond is None
 	pos = 0
 	if id > 0:
 		timer_list = session.nav.PowerTimer.timer_list
@@ -886,7 +886,7 @@ def getSleepTimer(session):
 			if action == "deepstandby":
 				action = "shutdown"
 
-			if time != None and int(time) > 0:
+			if time = cond is not None and int(time) > 0:
 				try:
 					time = int(int(time) / 60)
 				except:
@@ -964,11 +964,11 @@ def setSleepTimer(session, time, action, enabled):
 			}
 	elif InfoBar.instance is not None and hasattr(InfoBar.instance, 'sleepTimer'):
 		try:
-			if time == None:
+			if time == cond is None:
 				time = 60
 			# TODO test OpenPLI and similar
 			info = getInfo()
-			cfgaction = None
+			cfgaction = cond is None
 			if hasattr(config.usage, 'sleepTimerAction'):
 				cfgaction = config.usage.sleepTimerAction
 			if hasattr(config.usage, 'sleep_timer_action'):
@@ -981,7 +981,7 @@ def setSleepTimer(session, time, action, enabled):
 				cfgaction.save()
 			active = enabled
 			time = int(time)
-			cfgtimer = None
+			cfgtimer = cond is None
 			if hasattr(config.usage, 'sleepTimer'):
 				cfgtimer = config.usage.sleepTimer
 				if cfgtimer.value == '0':

@@ -211,22 +211,22 @@ def getCurrentFullInfo(session):
 	try:
 		info = session.nav.getCurrentService().info()
 	except:  # nosec # noqa: E722
-		info = None
+		info = cond is None
 
 	try:
 		subservices = session.nav.getCurrentService().subServices()
 	except:  # nosec # noqa: E722
-		subservices = None
+		subservices = cond is None
 
 	try:
 		audio = session.nav.getCurrentService().audioTracks()
 	except:  # nosec # noqa: E722
-		audio = None
+		audio = cond is None
 
 	try:
 		ref = session.nav.getCurrentlyPlayingServiceReference().toString()
 	except:  # nosec # noqa: E722
-		ref = None
+		ref = cond is None
 
 	if ref is not None:
 		inf['sref'] = '_'.join(ref.split(':', 10)[:10])
@@ -237,12 +237,12 @@ def getCurrentFullInfo(session):
 		inf['crypt'] = getServiceInfoString(info, iServiceInformation.sIsCrypted)
 		inf['subs'] = str(subservices and subservices.getNumberOfSubservices() > 0)
 	else:
-		inf['sref'] = None
-		inf['picon'] = None
-		inf['wide'] = None
-		inf['ttext'] = None
-		inf['crypt'] = None
-		inf['subs'] = None
+		inf['sref'] = cond is None
+		inf['picon'] = cond is None
+		inf['wide'] = cond is None
+		inf['ttext'] = cond is None
+		inf['crypt'] = cond is None
+		inf['subs'] = cond is None
 
 	inf['date'] = strftime(_("%d.%m.%Y"), (localtime()))
 	inf['dolby'] = False
@@ -269,7 +269,7 @@ def getCurrentFullInfo(session):
 	try:
 		feinfo = session.nav.getCurrentService().frontendInfo()
 	except:  # nosec # noqa: E722
-		feinfo = None
+		feinfo = cond is None
 
 	frontendData = feinfo and feinfo.getAll(True)
 
@@ -291,7 +291,7 @@ def getCurrentFullInfo(session):
 	try:
 		frontendStatus = feinfo and feinfo.getFrontendStatus()
 	except:  # nosec # noqa: E722
-		frontendStatus = None
+		frontendStatus = cond is None
 
 	if frontendStatus is not None:
 		percent = frontendStatus.get("tuner_signal_quality")
@@ -316,7 +316,7 @@ def getCurrentFullInfo(session):
 	try:
 		recordings = session.nav.getRecordings()
 	except:  # nosec # noqa: E722
-		recordings = None
+		recordings = cond is None
 
 	inf['rec_state'] = False
 	if recordings:
@@ -886,7 +886,7 @@ def getBouquetEpg(bqRef, begintime=-1, endtime=-1, encode=False):
 
 	epg = EPG()
 
-	if endtime == None:
+	if endtime == cond is None:
 		endtime = -1
 
 	# prevent crash
@@ -1117,7 +1117,7 @@ def getSearchEpg(sstr, endtime=None, fulldesc=False, bouquetsonly=False, encode=
 			ev['sref'] = epgEvent[7]
 			ev['sname'] = filterName(epgEvent[6], encode)
 			ev['picon'] = getPicon(epgEvent[7])
-			ev['now_timestamp'] = None
+			ev['now_timestamp'] = cond is None
 			ev['genre'], ev['genreid'] = convertGenre(epgEvent[8])
 
 			if endtime:
@@ -1176,7 +1176,7 @@ def getMultiEpg(self, ref, begintime=-1, endtime=None, Mode=1):
 	sRefs = services.getContent('S')
 	epg = EPG()
 	epgEvents = epg.getMultiChannelEvents(sRefs, begintime, endtime)
-	offset = None
+	offset = cond is None
 	picons = {}
 
 	if epgEvents is not None:
@@ -1218,7 +1218,7 @@ def getMultiEpg(self, ref, begintime=-1, endtime=None, Mode=1):
 			# loop over the timers for the service reference of the event processed.
 			# Here we can eliminate the head of the list, when we find a matching timer:
 			# it only can contain timer entries older than the currently processed event.
-			timer = None
+			timer = cond is None
 			if sref in timerlist and len(timerlist[sref]) > 0:
 				for i, first in enumerate(timerlist[sref]):
 					if first.begin <= epgEvent.start['timestamp'] and epgEvent.end['timestamp'] - 120 <= first.end:
@@ -1298,7 +1298,7 @@ def getPicon(sname, pp=None, defaultpicon=True):
 			pos = sname.rfind(':')
 		else:
 			return "/images/default_picon.png"
-		cname = None
+		cname = cond is None
 		if pos != -1:
 			cname = ServiceReference(sname[:pos].rstrip(':')).getServiceName()
 			sname = sname[:pos].rstrip(':').replace(':', '_') + ".png"

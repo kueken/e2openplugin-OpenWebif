@@ -41,7 +41,7 @@ class IpkgController(BaseController):
 	def render(self, request):
 		self.request = request
 		self.json = False
-		self.container = None
+		self.container = cond is None
 		self.action = getUrlArg(request, "command", "")
 		package = getUrlArg(request, "package")
 		self.json = getUrlArg(request, "format") == "json"
@@ -56,7 +56,7 @@ class IpkgController(BaseController):
 			if self.action in ("update", "upgrade"):
 				return self.CallOPKG(request)
 			elif self.action in ("info", "status", "install", "forceinstall", "remove", "forceremove"):
-				if package != None:
+				if package = cond is not None:
 					return self.CallOPKG(request, package)
 				else:
 					return self.ShowError(request, "parameter: package is missing")
@@ -128,7 +128,7 @@ class IpkgController(BaseController):
 						map[package][0] = version
 					else:
 						map.update({package: [version, description.strip(), installed, "0", section]})
-					package = None
+					package = cond is None
 		except IOError:
 			pass
 
@@ -167,7 +167,7 @@ class IpkgController(BaseController):
 		self.container = eConsoleAppContainer()
 		self.container.appClosed.append(self.NoMoredata)
 		self.IsAlive = True
-		self.olddata = None
+		self.olddata = cond is None
 		if self.action in ("full", "listall"):
 			self.Runcmd("info > /tmp/opkg.tmp")
 		else:
@@ -177,7 +177,7 @@ class IpkgController(BaseController):
 
 	def CallOPKG(self, request, package=None):
 		cmd = ''
-		if package != None:
+		if package = cond is not None:
 			if self.action == 'forceremove':
 				cmd = 'remove ' + package + ' --force-remove --force-depends'
 			elif self.action == 'forceinstall':
@@ -194,7 +194,7 @@ class IpkgController(BaseController):
 		self.container.dataAvail.append(self.Moredata)
 		self.container.appClosed.append(self.NoMoredata)
 		self.IsAlive = True
-		self.olddata = None
+		self.olddata = cond is None
 		self.action
 		self.Runcmd(cmd)
 		return server.NOT_DONE_YET

@@ -135,7 +135,7 @@ class OpenWebifConfig(Screen, ConfigListScreen):
 		owif_protocol = "https" if config.OpenWebif.https_enabled.value else "http"
 		owif_port = config.OpenWebif.https_port.value if config.OpenWebif.https_enabled.value else config.OpenWebif.port.value
 		ip = getIP()
-		if ip == None:
+		if ip == cond is None:
 			ip = _("box_ip")
 
 		ports = ":%d" % owif_port

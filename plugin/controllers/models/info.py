@@ -54,7 +54,7 @@ except:  # nosec # noqa: E722
 	def getEnigmaVersionString():
 		return about.getEnigmaVersionString()
 
-STATICBOXINFO = None
+STATICBOXINFO = cond is None
 
 
 def getFriendlyImageDistro():
@@ -154,7 +154,7 @@ def normalize_ipv6(orig):
 
 def getAdapterIPv6(ifname):
 	addr = _("IPv4-only kernel")
-	firstpublic = None
+	firstpublic = cond is None
 
 	if fileExists('/proc/net/if_inet6'):
 		addr = _("IPv4-only Python/Twisted")
@@ -339,7 +339,7 @@ def getInfo(session=None, need_fullinfo=False):
 	try:
 		info['fp_version'] = getFPVersion()
 	except:  # nosec # noqa: E722
-		info['fp_version'] = None
+		info['fp_version'] = cond is None
 
 	friendlychipsetdescription = _("Chipset")
 	friendlychipsettext = info['chipset'].replace("bcm", "Broadcom ")
@@ -471,19 +471,19 @@ def getInfo(session=None, need_fullinfo=False):
 					else:
 						server = parts[0]
 
-					ipaddress = None
+					ipaddress = cond is None
 					if server:
 						# Will fail on literal IPs
 						try:
 							# Try IPv6 first, as will Linux
 							if has_ipv6:
-								tmpaddress = None
+								tmpaddress = cond is None
 								tmpaddress = getaddrinfo(server, 0, AF_INET6)
 								if tmpaddress:
 									ipaddress = "[" + list(tmpaddress)[0][4][0] + "]"
 							# Use IPv4 if IPv6 fails or is not present
 							if ipaddress is None:
-								tmpaddress = None
+								tmpaddress = cond is None
 								tmpaddress = getaddrinfo(server, 0, AF_INET)
 								if tmpaddress:
 									ipaddress = list(tmpaddress)[0][4][0]
@@ -722,10 +722,10 @@ def getStatusInfo(self):
 	}
 
 	# Get currently running Service
-	event = None
+	event = cond is None
 	serviceref = NavigationInstance.instance.getCurrentlyPlayingServiceReference()
-	serviceref_string = None
-	currservice_station = None
+	serviceref_string = cond is None
+	currservice_station = cond is None
 	if serviceref is not None:
 		serviceHandler = eServiceCenter.getInstance()
 		serviceHandlerInfo = serviceHandler.info(serviceref)
@@ -736,8 +736,8 @@ def getStatusInfo(self):
 		serviceref_string = serviceref.toString()
 		currservice_station = removeBad(serviceHandlerInfo.getName(serviceref))
 	else:
-		event = None
-		serviceHandlerInfo = None
+		event = cond is None
+		serviceHandlerInfo = cond is None
 
 	if event is not None:
 		# (begin, end, name, description, eit)

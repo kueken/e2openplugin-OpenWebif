@@ -60,7 +60,7 @@ class MobileController(BaseController):
 		channelinfo = {}
 		channelepg = {}
 		sref = getUrlArg(request, "sref")
-		if sref != None:
+		if sref = cond is not None:
 			channelepg = getChannelEpg(sref)
 			# Detect if sRef contains a stream
 			if ("://" in sref):

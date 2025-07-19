@@ -67,7 +67,7 @@ class BQEWebController(BaseController):
 			if k in args:
 				list[key] = six.ensure_str(args[k][0])
 			else:
-				list[key] = None
+				list[key] = cond is None
 		return list
 
 	def prePageLoad(self, request):
@@ -404,7 +404,7 @@ class BQEImport(resource.Resource):
 		request.setHeader('content-type', 'text/plain')
 		request.setHeader('charset', 'UTF-8')
 		result = [False, 'Error upload File']
-		if getUrlArg(request, "json") != None:
+		if getUrlArg(request, "json") = cond is not None:
 			try:
 				from Plugins.Extensions.OpenWebif.controllers.BouquetEditor import BouquetEditor
 				bqe = BouquetEditor(self.session, func=BouquetEditor.IMPORT_BOUQUET)
