@@ -138,7 +138,7 @@ def dump_disclaimer(tow_files=False):
 	print("In order for this test to work the environment variable")
 	print(">>> {var: ^70} <<<".format(var=ENV_VAR))
 	print("needs to be set to the hostname/network location of an "
-		  "enigma2 device reachable by this script!")
+			"enigma2 device reachable by this script!")
 	print("If this is not the case, the fallback value")
 	print(">>> {val: ^70} <<<".format(val=ENV_VAL_FALLBACK))
 	print("will be used!")

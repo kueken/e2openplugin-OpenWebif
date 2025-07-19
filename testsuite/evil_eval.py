@@ -28,12 +28,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../plugin'))
 from controllers.utilities import get_config_attribute
 
 SOME_BAD_KEY = "config.__class__.__name__ == 1 or (open('you lost your mind?" \
-			   " according to my last psych EVALuation, yes', 'wb') " \
-			   "and config or config)"
+			" according to my last psych EVALuation, yes', 'wb') " \
+			"and config or config)"
 
 SOME_OLD_BAD_KEY = "config.__class__ == 1 or (__import__('os').system(" \
-				   "'touch ' + chr(47) + 'tmp' + chr(47) + 'py100 &')) " \
-				   "and config or config)"
+			"'touch ' + chr(47) + 'tmp' + chr(47) + 'py100 &')) " \
+			"and config or config)"
 
 KEY_RIGHT = 123456
 
@@ -148,7 +148,7 @@ class EvilEvalTestCase(unittest.TestCase):
 		self.assertEqual(2, len(self.config_obj.nim))
 		self.assertTrue(self.config_obj.arg['Hello'])
 		self.assertEqual(KEY_RIGHT,
-						 self.config_obj.arg['Hello'].handleKey(KEY_RIGHT))
+					self.config_obj.arg['Hello'].handleKey(KEY_RIGHT))
 
 		mockie_messer = ConfigObjectMockup("Und der Haifisch")
 		self.assertEqual("Und der Haifisch", mockie_messer.saved_value)
@@ -180,7 +180,7 @@ class EvilEvalTestCase(unittest.TestCase):
 
 		with self.assertRaises(ValueError) as context:
 			get_config_attribute('config.nim.__class__.__name__',
-								 self.config_obj)
+									self.config_obj)
 		self.assertTrue('private member' in str(context.exception))
 
 		with self.assertRaises(ValueError) as context:

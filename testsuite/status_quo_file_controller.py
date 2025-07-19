@@ -72,7 +72,7 @@ class TestEnigma2FileAPICalls(unittest.TestCase):
 		req = requests.get(self.file_url, params=params)
 		print("Tried to fetch {!r}".format(req.url))
 		self.assertEqual("File '/home/root/{:s}' not found".format(randy),
-						  req.text)
+									req.text)
 		self.assertEqual(200, req.status_code)
 
 	def test_nonexisting_path(self):
@@ -83,7 +83,7 @@ class TestEnigma2FileAPICalls(unittest.TestCase):
 		req = requests.get(self.file_url, params=params)
 		print("Tried to fetch {!r}".format(req.url))
 		minimal_expectation = {"message": "path {:s} not exits".format(randy),
-							   "result": False}
+									"result": False}
 		result = req.json()
 		for key in minimal_expectation:
 			self.assertEqual(minimal_expectation[key], result.get(key))
@@ -111,7 +111,7 @@ class TestEnigma2FileAPICalls(unittest.TestCase):
 		req = requests.get(self.file_url, params=params)
 		print("Tried to fetch {!r}".format(req.url))
 		minimal_expectation = {"dirs": ['/etc/opkg/'], "result": True,
-							   "files": []}
+									"files": []}
 		result = req.json()
 		for key in minimal_expectation:
 			self.assertEqual(minimal_expectation[key], result.get(key))
