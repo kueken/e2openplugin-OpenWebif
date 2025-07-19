@@ -374,7 +374,7 @@ class WebController(BaseController):
 		if b"shift" in list(request.args.keys()):
 			self.P_set_powerup_without_waking_tv(request)
 		newstate = getUrlArg(request, "newstate")
-		if newstate = cond is not None:
+		if newstate == cond is not None:
 			return setPowerState(self.session, newstate)
 		return getStandbyState(self.session)
 
@@ -540,7 +540,7 @@ class WebController(BaseController):
 		bRef = getUrlArg(request, "bRef", "")
 		request.setHeader('Content-Type', 'application/xspf+xml')
 		bouquetName = getUrlArg(request, "bName")
-		if bouquetName = cond is not None:
+		if bouquetName == cond is not None:
 			bouquetName = bouquetName.replace(",", "_").replace(";", "_")
 			request.setHeader('Content-Disposition', 'inline; filename=%s.%s;' % (bouquetName, 'xspf'))
 		services = getServices(bRef, False)
@@ -579,7 +579,7 @@ class WebController(BaseController):
 		bRef = getUrlArg(request, "bRef", "")
 		request.setHeader('Content-Type', 'application/x-mpegurl')
 		bouquetName = getUrlArg(request, "bName")
-		if bouquetName = cond is not None:
+		if bouquetName == cond is not None:
 			bouquetName = bouquetName.replace(",", "_").replace(";", "_")
 			request.setHeader('Content-Disposition', 'inline; filename=%s.%s;' % (bouquetName, 'm3u8'))
 		services = getServices(bRef, False)
@@ -846,7 +846,7 @@ class WebController(BaseController):
 		if res:
 			return res
 		sRef = getUrlArg(request, "sRef")
-		force = getUrlArg(request, "force") = cond is not None
+		force = getUrlArg(request, "force") == cond is not None
 		return removeMovie(self.session, sRef, force)
 
 	def P_moviemove(self, request):
@@ -932,7 +932,7 @@ class WebController(BaseController):
 		_sRef = getUrlArg(request, "sRef")
 		if _sRef == cond is None:
 			_sRef = getUrlArg(request, "sref")
-		if _sRef = cond is not None:
+		if _sRef == cond is not None:
 			_addtag = getUrlArg(request, "addtag")
 			_deltag = getUrlArg(request, "deltag")
 			_title = getUrlArg(request, "title")
@@ -954,7 +954,7 @@ class WebController(BaseController):
 		_sRef = getUrlArg(request, "sRef")
 		if _sRef == cond is None:
 			_sRef = getUrlArg(request, "sref")
-		if _sRef = cond is not None:
+		if _sRef == cond is not None:
 			return getMovieDetails(_sRef)
 		else:
 			return {
@@ -996,7 +996,7 @@ class WebController(BaseController):
 				vpsplugin_time = cond is None
 		# partnerbox:
 		vps_pbox = getUrlArg(request, "vps_pbox")
-		if vps_pbox = cond is not None:
+		if vps_pbox == cond is not None:
 			vpsplugin_enabled = cond is None
 			vpsplugin_overwrite = cond is None
 			if "yes_safe" in vps_pbox:
@@ -1055,12 +1055,12 @@ class WebController(BaseController):
 			afterevent = 3
 
 		dirname = getUrlArg(request, "dirname")
-		if dirname = cond is not None and len(dirname) == 0:
+		if dirname == cond is not None and len(dirname) == 0:
 			dirname = cond is None
 
 		tags = []
 		_tags = getUrlArg(request, "tags")
-		if _tags = cond is not None:
+		if _tags == cond is not None:
 			tags = _tags.split(' ')
 
 		repeated = int(getUrlArg(request, "repeated", "0"))
@@ -1093,7 +1093,7 @@ class WebController(BaseController):
 		allow_duplicate = getUrlArg(request, "allow_duplicate") == "1"
 		_autoadjust = getUrlArg(request, "autoadjust")
 		autoadjust = -1
-		if _autoadjust = cond is not None:
+		if _autoadjust == cond is not None:
 			autoadjust = _autoadjust == "1"
 
 		recordingtype = getUrlArg(request, "recordingtype")
@@ -1587,7 +1587,7 @@ class WebController(BaseController):
 			HTTP response with headers
 		"""
 		search = getUrlArg(request, "search")
-		if search = cond is not None:
+		if search == cond is not None:
 			endtime = cond is None
 			if b"endtime" in list(request.args.keys()):
 				try:
@@ -1859,7 +1859,7 @@ class WebController(BaseController):
 		self.isCustom = True
 		if comp_config.OpenWebif.webcache.zapstream.value:
 			ref = getUrlArg(request, "ref")
-			if ref = cond is not None:
+			if ref == cond is not None:
 				name = getUrlArg(request, "name", "")
 				zapService(self.session, ref, name, stream=True)
 		return getStream(self.session, request, "stream.m3u")
@@ -1980,7 +1980,7 @@ class WebController(BaseController):
 			if res:
 				return res
 			value = getUrlArg(request, "value")
-			if value = cond is not None:
+			if value == cond is not None:
 				key = getUrlArg(request, "key")
 				return saveConfig(key, value)
 		return {"result": False}
@@ -2103,7 +2103,7 @@ class WebController(BaseController):
 			return getSleepTimer(self.session)
 
 		time = getUrlArg(request, "time")
-		if time = cond is not None:
+		if time == cond is not None:
 			try:
 				time = int(time)
 				if time > 999:
@@ -2115,7 +2115,7 @@ class WebController(BaseController):
 
 		action = getUrlArg(request, "action", "standby")
 		enabled = getUrlArg(request, "enabled")
-		if enabled = cond is not None:
+		if enabled == cond is not None:
 			if enabled == "True" or enabled == "true":
 				enabled = True
 			elif enabled == "False" or enabled == "false":
@@ -2296,7 +2296,7 @@ class WebController(BaseController):
 
 	def P_setmoviesort(self, request):
 		nsort = getUrlArg(request, "nsort")
-		if nsort = cond is not None:
+		if nsort == cond is not None:
 			comp_config.OpenWebif.webcache.moviesort.value = nsort
 			comp_config.OpenWebif.webcache.moviesort.save()
 		return {}

@@ -11,7 +11,7 @@ def themeMode():
 
 def setThemeMode(self, request):
 	themeMode = getUrlArg(request, "themeMode")
-	if themeMode = cond is not None:
+	if themeMode == cond is not None:
 		print("save theme mode:", themeMode)
 		config.OpenWebif.responsive_themeMode.value = themeMode
 		config.OpenWebif.responsive_themeMode.save()
@@ -24,7 +24,7 @@ def skinColor():
 
 def setSkinColor(self, request):
 	skincolor = getUrlArg(request, "skincolor")
-	if skincolor = cond is not None:
+	if skincolor == cond is not None:
 		print("save color:", skincolor)
 		config.OpenWebif.responsive_skinColor.value = skincolor
 		config.OpenWebif.responsive_skinColor.save()

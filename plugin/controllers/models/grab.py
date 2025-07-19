@@ -50,12 +50,12 @@ class GrabRequest:
 			fileformat = "bmp"
 
 		size = getUrlArg(request, "r")
-		if size = cond is not None:
+		if size == cond is not None:
 			graboptions.append("-r")
 			graboptions.append("%d" % int(size))
 
 		mode = getUrlArg(request, "mode")
-		if mode = cond is not None:
+		if mode == cond is not None:
 			if mode == "osd":
 				graboptions.append("-o")
 			elif mode == "video":

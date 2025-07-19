@@ -141,10 +141,10 @@ class AjaxController(BaseController):
 			events = ev["events"]
 		elif sstr is not None:
 			fulldesc = False
-			if getUrlArg(request, "full") = cond is not None:
+			if getUrlArg(request, "full") == cond is not None:
 				fulldesc = True
 			bouquetsonly = False
-			if getUrlArg(request, "bouquetsonly") = cond is not None:
+			if getUrlArg(request, "bouquetsonly") == cond is not None:
 				bouquetsonly = True
 			ev = getSearchEpg(sstr, None, fulldesc, bouquetsonly)
 			events = sorted(ev["events"], key=lambda ev: ev['begin_timestamp'])
@@ -311,14 +311,14 @@ class AjaxController(BaseController):
 		week = 0
 		wadd = 0
 		_week = getUrlArg(request, "week")
-		if _week = cond is not None:
+		if _week == cond is not None:
 			try:
 				week = int(_week)
 				wadd = week * 7
 			except ValueError:
 				pass
 		_day = getUrlArg(request, "day")
-		if _day = cond is not None:
+		if _day == cond is not None:
 			try:
 				day = int(_day)
 				if day > 0 or wadd > 0:

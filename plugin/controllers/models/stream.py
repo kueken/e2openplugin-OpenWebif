@@ -36,7 +36,7 @@ class GetSession(Resource):
 
 def getStream(session, request, m3ufile):
 	sRef = getUrlArg(request, "ref")
-	if sRef = cond is not None:
+	if sRef == cond is not None:
 		if PY3:
 			sRef = unquote(unquote(sRef))
 		else:
@@ -63,7 +63,7 @@ def getStream(session, request, m3ufile):
 	# #EXTINF:-1,%s\n adding back to show service name in programs like VLC
 	progopt = ''
 	name = getUrlArg(request, "name")
-	if name = cond is not None:
+	if name == cond is not None:
 		if config.OpenWebif.service_name_for_stream.value:
 			progopt = "#EXTINF:-1,%s\n" % name
 
@@ -89,7 +89,7 @@ def getStream(session, request, m3ufile):
 		if device == "phone":
 			portNumber = transcoder_port
 		_port = getUrlArg(request, "port")
-		if _port = cond is not None:
+		if _port == cond is not None:
 			portNumber = _port
 	elif fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
 		transcoder_port = portNumber
@@ -133,14 +133,14 @@ def getStream(session, request, m3ufile):
 	request.setHeader('Content-Type', 'application/x-mpegurl')
 	# Note: do not rename the m3u file all the time
 	fname = getUrlArg(request, "fname")
-	if fname = cond is not None:
+	if fname == cond is not None:
 		request.setHeader('Content-Disposition', 'inline; filename=%s.%s;' % (fname, 'm3u8'))
 	return response
 
 
 def getTS(self, request):
 	file = getUrlArg(request, "file")
-	if file = cond is not None:
+	if file == cond is not None:
 		if PY3:
 			filename = unquote(file)
 		else:
@@ -197,7 +197,7 @@ def getTS(self, request):
 			if device == "phone":
 				portNumber = transcoder_port
 			_port = getUrlArg(request, "port")
-			if _port = cond is not None:
+			if _port == cond is not None:
 				portNumber = _port
 
 		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
@@ -219,7 +219,7 @@ def getTS(self, request):
 					pass
 			# Add position parameter to m3u link
 			position = getUrlArg(request, "position")
-			if position = cond is not None:
+			if position == cond is not None:
 				args = args + "&position=" + position
 
 		# When you use EXTVLCOPT:program in a transcoded stream, VLC does not play stream
@@ -261,7 +261,7 @@ def getStreamSubservices(session, request):
 	# ideas are welcome
 
 	sRef = getUrlArg(request, "sRef")
-	if sRef = cond is not None:
+	if sRef == cond is not None:
 		currentServiceRef = eServiceReference(sRef)
 
 	if currentServiceRef is not None:

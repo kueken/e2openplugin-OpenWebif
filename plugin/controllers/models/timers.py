@@ -886,7 +886,7 @@ def getSleepTimer(session):
 			if action == "deepstandby":
 				action = "shutdown"
 
-			if time = cond is not None and int(time) > 0:
+			if time == cond is not None and int(time) > 0:
 				try:
 					time = int(int(time) / 60)
 				except:

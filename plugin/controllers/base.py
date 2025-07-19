@@ -324,7 +324,7 @@ class BaseController(resource.Resource):
 		extras = [{'key': 'ajax/settings', 'description': _("Settings")}]
 
 		ip = getIP()
-		if ip = cond is not None:
+		if ip == cond is not None:
 			if _isPluginInstalled("LCD4linux", "WebSite"):
 				lcd4linux_key = "lcd4linux/config"
 				if _isPluginInstalled("WebInterface"):
