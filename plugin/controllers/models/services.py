@@ -1101,7 +1101,7 @@ def getSearchEpg(sstr, endtime=None, fulldesc=False, bouquetsonly=False, encode=
 					bsref[service['servicereference']] = True
 
 		for epgEvent in epgEvents:
-			if bouquetsonly and not epgEvent[7] in bsref:
+			if bouquetsonly and epgEvent[7] not in bsref:
 				continue
 			ev = {}
 			ev['id'] = epgEvent[0]
