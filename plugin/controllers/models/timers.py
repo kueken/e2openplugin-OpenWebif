@@ -886,7 +886,7 @@ def getSleepTimer(session):
 			if action == "deepstandby":
 				action = "shutdown"
 
-			if time == cond is not None and int(time) > 0:
+			if time is not None and int(time) > 0:
 				try:
 					time = int(int(time) / 60)
 				except:
@@ -964,7 +964,7 @@ def setSleepTimer(session, time, action, enabled):
 			}
 	elif InfoBar.instance is not None and hasattr(InfoBar.instance, 'sleepTimer'):
 		try:
-			if time == cond is None:
+			if time is None:
 				time = 60
 			# TODO test OpenPLI and similar
 			info = getInfo()

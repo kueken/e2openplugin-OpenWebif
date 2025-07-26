@@ -886,7 +886,7 @@ def getBouquetEpg(bqRef, begintime=-1, endtime=-1, encode=False):
 
 	epg = EPG()
 
-	if endtime == cond is None:
+	if endtime is None:
 		endtime = -1
 
 	# prevent crash

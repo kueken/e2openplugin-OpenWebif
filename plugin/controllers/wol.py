@@ -53,7 +53,7 @@ class WOLSetupController(resource.Resource):
 			wol_state = getUrlArg(request, "wol")
 			location = getUrlArg(request, "location")
 			wol_standby = getUrlArg(request, "wolstandby")
-			if wol_state == cond is not None:
+			if wol_state is not None:
 				wol_state = str(wol_state).lower()
 				if wol_state in ('true', '1', 'enabled', 'enable', 'active'):
 					config.plugins.wolconfig.activate.value = True
@@ -61,13 +61,13 @@ class WOLSetupController(resource.Resource):
 					config.plugins.wolconfig.activate.value = False
 				if wol_active != config.plugins.wolconfig.activate.value:
 					config_changed = True
-			elif location == cond is not None:
+			elif location is not None:
 				if location not in config.plugins.wolconfig.location.choices:
 					location = wol_location
 				if location != config.plugins.wolconfig.location.value:
 					config.plugins.wolconfig.location.value = location
 					config_changed = True
-			elif wol_standby == cond is not None:
+			elif wol_standby is not None:
 				wol_standby = str(wol_standby).lower()
 				if wol_standby in ('true', '1', 'enabled', 'enable', 'active'):
 					try:
@@ -108,19 +108,19 @@ class WOLClientController(resource.Resource):
 			mac = ""
 			ip = ""
 			man_port = getUrlArg(request, "port")
-			if man_port == cond is not None:
+			if man_port is not None:
 				try:
 					port = int(man_port)
 				except ValueError:
 					pass
 			mac = getUrlArg(request, "mac")
-			if mac == cond is not None:
+			if mac is not None:
 				mac = str(mac).lower()
 				mac = mac.split(':')
 				if len(mac) != 6:
 					return createResult(False, b"MAC address invalid see example: AA:BB:CC:DD:EE:FF")
 			ip = getUrlArg(request, "ip")
-			if ip == cond is not None:
+			if ip is not None:
 				ip = str(ip).lower()
 				ip = ip.split('.')
 				if len(ip) != 4:

@@ -56,7 +56,7 @@ class IpkgController(BaseController):
 			if self.action in ("update", "upgrade"):
 				return self.CallOPKG(request)
 			elif self.action in ("info", "status", "install", "forceinstall", "remove", "forceremove"):
-				if package == cond is not None:
+				if package is not None:
 					return self.CallOPKG(request, package)
 				else:
 					return self.ShowError(request, "parameter: package is missing")
@@ -177,7 +177,7 @@ class IpkgController(BaseController):
 
 	def CallOPKG(self, request, package=None):
 		cmd = ''
-		if package == cond is not None:
+		if package is not None:
 			if self.action == 'forceremove':
 				cmd = 'remove ' + package + ' --force-remove --force-depends'
 			elif self.action == 'forceinstall':

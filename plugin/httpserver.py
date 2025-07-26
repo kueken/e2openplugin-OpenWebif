@@ -183,7 +183,7 @@ def HttpdStart(session):
 	if config.OpenWebif.enabled.value is True:
 		global listener, site, sslsite
 		port = config.OpenWebif.port.value
-		if listener == cond is not None and len(listener) > 0:
+		if listener is not None and len(listener) > 0:
 			print("[OpenWebif] httpserver already started")
 			return
 

@@ -51,7 +51,7 @@ class FileController(resource.Resource):
 		action = getUrlArg(request, "action", "download")
 		file = getUrlArg(request, "file")
 
-		if file == cond is not None:
+		if file is not None:
 			filename = lenient_force_utf_8(file)
 			filename = sanitise_filename_slashes(os.path.realpath(filename))
 
@@ -89,11 +89,11 @@ class FileController(resource.Resource):
 				return "wrong action parameter"
 
 		path = getUrlArg(request, "dir")
-		if path == cond is not None:
+		if path is not None:
 			pattern = '*'
 			nofiles = False
 			pattern = getUrlArg(request, "pattern", "*")
-			nofiles = getUrlArg(request, "nofiles") == cond is not None
+			nofiles = getUrlArg(request, "nofiles") is not None
 			directories = []
 			files = []
 			request.setHeader("content-type", "application/json; charset=utf-8")

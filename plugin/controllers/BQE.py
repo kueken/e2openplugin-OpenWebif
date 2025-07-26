@@ -404,7 +404,7 @@ class BQEImport(resource.Resource):
 		request.setHeader('content-type', 'text/plain')
 		request.setHeader('charset', 'UTF-8')
 		result = [False, 'Error upload File']
-		if getUrlArg(request, "json") == cond is not None:
+		if getUrlArg(request, "json") is not None:
 			try:
 				from Plugins.Extensions.OpenWebif.controllers.BouquetEditor import BouquetEditor
 				bqe = BouquetEditor(self.session, func=BouquetEditor.IMPORT_BOUQUET)
