@@ -191,6 +191,8 @@ def getAllInfo():
 			model = procmodel.replace("GBQUAD", "Quad").replace("PLUS", " Plus")
 		elif procmodel == "gbquad4k":
 			model = procmodel.replace("gbquad4k", "UHD Quad 4k")
+		elif procmodel == "gbquad4kpro":
+			model = procmodel.replace("gbquad4kpro", "UHD Quad 4k PRO")
 		elif procmodel == "quad4k":
 			model = procmodel.replace("quad4k", "UHD Quad 4k")
 		elif procmodel == "gbue4k":
@@ -198,7 +200,24 @@ def getAllInfo():
 		elif procmodel == "ue4k":
 			model = procmodel.replace("ue4k", "UHD UE 4k")
 		elif procmodel == "gbtrio4k":
-			model = procmodel.replace("gbtrio4k", "UHD Trio 4k")
+			wifi = None
+			if fileExists("/sys/devices/platform/soc/f9890000.ehci/usb1/1-2/idProduct"):
+				f = open("/sys/devices/platform/soc/f9890000.ehci/usb1/1-2/idProduct", 'r')
+				wifi = f.readline().strip().lower()
+				f.close()
+			if wifi == "c82c":
+				procmodel = "gbtrio4kpro"
+				model = "UHD Trio 4k PRO"
+			else:
+				ustymtype = open("/proc/stb/info/type").read()
+				if ustymtype.startswith("11"):
+					procmodel = "gbtrio4ktwin"
+					model = "UHD Trio 4K Twin"
+				elif ustymtype.startswith("12"):
+					model = "UHD Trio 4k"
+				else:  # ustymtype.startswith("10")
+					procmodel = "gbtrio4ksingle"
+					model = "UHD Trio 4k Single"
 	elif fileExists("/proc/stb/info/vumodel") and not fileExists("/proc/stb/info/boxtype"):
 		brand = "Vu+"
 		f = open("/proc/stb/info/vumodel", 'r')
@@ -584,12 +603,24 @@ def getAllInfo():
 			grabpip = 1
 		elif procmodel == "ustym4kpro":
 			brand = "uClan"
-			ustymtype = open("/proc/stb/info/type").read()
-			if ustymtype.startswith("11"):
-				procmodel = "ustym4ktwin"
-				model = "uStym 4K Twin"
-			elif ustymtype.startswith("12"):
-				model = "Usytm 4K Pro"
+			wifi = None
+			if fileExists("/sys/devices/platform/soc/f9890000.ehci/usb1/1-2/idProduct"):
+				f = open("/sys/devices/platform/soc/f9890000.ehci/usb1/1-2/idProduct", 'r')
+				wifi = f.readline().strip().lower()
+				f.close()
+			if wifi == "c82c":
+				procmodel = "ustym4kultimate"
+				model = "uStym 4K Pro Ultimate"
+			else:
+				ustymtype = open("/proc/stb/info/type").read()
+				if ustymtype.startswith("11"):
+					procmodel = "ustym4ktwin"
+					model = "uStym 4K Pro Twin"
+				elif ustymtype.startswith("12"):
+					model = "Usytm 4K Pro"
+				else:  # ustymtype.startswith("10")
+					procmodel = "ustym4ksingle"
+					model = "Ustym 4K Pro Single"
 		elif procmodel == "ustym4ks2ottx":
 			brand = "uClan"
 			model = "Ustym 4K S2 OTT X"
