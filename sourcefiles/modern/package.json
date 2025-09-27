@@ -25,7 +25,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.28.4",
     "screenfull": "^6.0.2",
-    "dompurify": "^3.2.6"
+    "dompurify": "^3.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
