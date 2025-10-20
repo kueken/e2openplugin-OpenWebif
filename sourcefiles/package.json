@@ -47,7 +47,7 @@
   },
   "homepage": "https://github.com/E2OpenPlugins/e2openplugin-OpenWebif#readme",
   "dependencies": {
-    "dompurify": "^3.2.7",
+    "dompurify": "^3.3.0",
     "jsdom": "^26.1.0",
     "path-exists": "^5.0.0",
     "semver": "^7.7.3"
