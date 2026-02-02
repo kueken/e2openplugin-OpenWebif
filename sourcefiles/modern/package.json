@@ -23,7 +23,7 @@
   ],
   "browserslist-preview": "https://browserslist.dev",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.28.6",
+    "@babel/runtime-corejs3": "^7.29.0",
     "screenfull": "^6.0.2",
     "dompurify": "^3.3.1"
   },
