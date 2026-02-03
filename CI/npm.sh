@@ -12,6 +12,7 @@ npm install path-exists
 npm install semver
 npm install dompurify
 npm install jsdom
+npm install node-tar
 npm update
 npm ci --prefix modern
 npm run build-css
