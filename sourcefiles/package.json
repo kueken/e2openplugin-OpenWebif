@@ -46,10 +46,10 @@
   },
   "homepage": "https://github.com/E2OpenPlugins/e2openplugin-OpenWebif#readme",
   "dependencies": {
-    "dompurify": "^3.3.1",
+    "dompurify": "^3.3.2",
     "jsdom": "^26.1.0",
     "path-exists": "^5.0.0",
     "semver": "^7.7.4",
-    "tar": "^7.5.9"
+    "tar": "^7.5.10"
   }
 }
