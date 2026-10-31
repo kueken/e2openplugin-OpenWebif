@@ -38,12 +38,23 @@ from OpenSSL import crypto
 from Components.Network import iNetwork
 
 import os
-import imp
+import sys
+import importlib.util
 import ipaddress
 import six
 
 global listener, server_to_stop, site, sslsite
 listener = []
+
+
+def _load_module_from_file(modname, filepath):
+	spec = importlib.util.spec_from_file_location(modname, filepath)
+	if spec is None or spec.loader is None:
+		raise ImportError("Cannot load module '%s' from '%s'" % (modname, filepath))
+	mod = importlib.util.module_from_spec(spec)
+	sys.modules[modname] = mod
+	spec.loader.exec_module(mod)
+	return mod
 
 
 def getAllNetworks():
@@ -159,10 +170,10 @@ def buildRootTree(session):
 
 				loaded.append(modulename)
 				try:
-					imp.load_source(modulename, origwebifpath + "/WebChilds/External/" + modulename + ".py")
-				except Exception as e:
+					_load_module_from_file(modulename, origwebifpath + "/WebChilds/External/" + modulename + ".py")
+				except Exception:
 					# maybe there's only the compiled version
-					imp.load_compiled(modulename, origwebifpath + "/WebChilds/External/" + external)
+					_load_module_from_file(modulename, origwebifpath + "/WebChilds/External/" + external)
 
 		if len(loaded_plugins) > 0:
 			for plugin in loaded_plugins:
@@ -355,144 +366,4 @@ class AuthResource(resource.Resource):
 			if config.OpenWebif.vpn_access.value is True and ipaddress.ip_address(six.text_type(peer)).is_private:
 				return self.resource.getChildWithDefault(path, request)
 
-		# #3: Access is from localhost and streaming auth is disabled - or - we only want to see our IPv6 (For inadyn-mt)
-		if ((host == "localhost" or host == "127.0.0.1" or host == "::ffff:127.0.0.1" or host == "::1") and not (request.uri.startswith(b"/web/stream?StreamService=") and config.OpenWebif.auth_for_streaming.value) or request.uri == b"/web/getipv6"):
-			return self.resource.getChildWithDefault(path, request)
-
-		# #4: Web TV is accessing streams and "auths" by parent session id
-		ruser = six.ensure_str(request.getUser())
-		rpw = six.ensure_str(request.getPassword())
-		if ruser == "-sid":
-			sid = str(rpw)
-			try:
-				oldsession = site.getSession(sid).sessionNamespaces
-				if "logged" in list(oldsession.keys()) and oldsession["logged"]:
-					session = request.getSession().sessionNamespaces
-					session["logged"] = True
-					return self.resource.getChildWithDefault(path, request)
-			except:  # nosec # noqa: E722
-				pass
-
-			try:
-				oldsession = sslsite.getSession(sid).sessionNamespaces
-				if "logged" in list(oldsession.keys()) and oldsession["logged"]:
-					session = request.getSession().sessionNamespaces
-					session["logged"] = True
-					return self.resource.getChildWithDefault(path, request)
-			except:  # nosec # noqa: E722
-				pass
-
-		# If we get to here, no exception applied
-		# Either block with forbidden (If auth is disabled) ...
-		if (not request.isSecure() and config.OpenWebif.auth.value is False) or (request.isSecure() and config.OpenWebif.https_auth.value is False):
-			return resource.ErrorPage(http.FORBIDDEN, 'Forbidden', '403.6 IP address rejected')
-
-		# ... or auth
-		if "logged" in list(session.keys()) and session["logged"]:
-			return self.resource.getChildWithDefault(path, request)
-
-		if self.login(ruser, rpw, peer) is False:
-			request.setHeader('WWW-authenticate', 'Basic realm="%s"' % ("OpenWebif"))
-			return resource.ErrorPage(http.UNAUTHORIZED, "Unauthorized", "401 Authentication required")
-		else:
-			session["logged"] = True
-			session["user"] = ruser
-			session["pwd"] = None
-			if self.noShell(ruser):
-				session["pwd"] = rpw
-			return self.resource.getChildWithDefault(path, request)
-
-	def login(self, user, passwd, peer):
-		if user == "root" and config.OpenWebif.no_root_access.value:
-			# Override "no root" for logins from local/private networks
-			samenet = False
-			networks = getAllNetworks()
-			if networks:
-				for network in networks:
-					if ipaddress.ip_address(six.text_type(peer)) in ipaddress.ip_network(six.text_type(network), strict=False):
-						samenet = True
-			if not (ipaddress.ip_address(six.text_type(peer)).is_private or samenet):
-				return False
-		from crypt import crypt
-		from pwd import getpwnam
-		from spwd import getspnam
-		cpass = None
-		try:
-			cpass = getpwnam(user)[1]
-		except:  # nosec # noqa: E722
-			return False
-		if cpass:
-			if cpass == 'x' or cpass == '*':
-				try:
-					cpass = getspnam(user)[1]
-				except:  # nosec # noqa: E722
-					return False
-			return crypt(passwd, cpass) == cpass
-		return False
-
-
-class StopServer:
-	"""
-	Helper class to stop running web servers; we use a class here to reduce use
-	of global variables. Resembles code prior found in HttpdStop et. al.
-	"""
-	server_to_stop = 0
-
-	def __init__(self, session, callback=None):
-		self.session = session
-		self.callback = callback
-
-	def doStop(self):
-		global listener
-		self.server_to_stop = 0
-		for interface in listener:
-			print("[OpenWebif] Stopping server on port", interface.port)
-			deferred = interface.stopListening()
-			try:
-				self.server_to_stop += 1
-				deferred.addCallback(self.callbackStopped)
-			except AttributeError:
-				pass
-		listener = []
-		if self.server_to_stop < 1:
-			self.doCallback()
-
-	def callbackStopped(self, reason):
-		self.server_to_stop -= 1
-		if self.server_to_stop < 1:
-			self.doCallback()
-
-	def doCallback(self):
-		if self.callback is not None:
-			self.callback(self.session)
-
-#
-# create a self signed SSL certificate if necessary
-#
-
-
-def installCertificates(session):
-	certGenerator = SSLCertificateGenerator()
-	try:
-		certGenerator.installCertificates()
-	except IOError as e:
-		# Disable https
-		config.OpenWebif.https_enabled.value = False
-		config.OpenWebif.https_enabled.save()
-		# Inform the user
-		session.open(MessageBox, "Cannot install generated SSL-Certifactes for https access\nHttps access is disabled!", MessageBox.TYPE_ERROR)
-# BJ
-
-
-def BJregisterService(protocol, port):
-	try:
-		from Plugins.Extensions.Bonjour.Bonjour import bonjour
-		service = bonjour.buildService(protocol, port, 'OpenWebif')
-		bonjour.registerService(service, True)
-	except:  # nosec # noqa: E722
-		pass
-	try:
-		servicetype = '_' + protocol + '._tcp'
-		enigma.e2avahi_announce(None, servicetype, port)
-	except:  # nosec # noqa: E722
-		pass
+		# #3: Access is from localhost and streaming auth is disabled - or - we only want to see our IPv6 (For inadyn-mt

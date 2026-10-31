@@ -22,7 +22,8 @@
 
 from __future__ import print_function
 import os
-import imp
+import sys
+import importlib.util
 import json
 import six
 
@@ -41,6 +42,16 @@ from Components.config import config
 from Plugins.Extensions.OpenWebif.controllers.models.info import getInfo
 from Plugins.Extensions.OpenWebif.controllers.models.config import getCollapsedMenus, getConfigsSections, getShowName, getCustomName, getBoxName
 from Plugins.Extensions.OpenWebif.controllers.defaults import getPublicPath, getViewsPath, EXT_EVENT_INFO_SOURCE, STB_LANG, getIP, HASAUTOTIMER, TEXTINPUTSUPPORT, _isPluginInstalled
+
+
+def _load_module_from_file(modname, filepath):
+	spec = importlib.util.spec_from_file_location(modname, filepath)
+	if spec is None or spec.loader is None:
+		raise ImportError("Cannot load module '%s' from '%s'" % (modname, filepath))
+	mod = importlib.util.module_from_spec(spec)
+	sys.modules[modname] = mod
+	spec.loader.exec_module(mod)
+	return mod
 
 
 def new_getRequestHostname(self):
@@ -120,11 +131,11 @@ class BaseController(resource.Resource):
 	def loadTemplate(self, path, module, args):
 		if fileExists(getViewsPath(path + ".py")) or fileExists(getViewsPath(path + ".pyo")) or fileExists(getViewsPath(path + ".pyc")):
 			if fileExists(getViewsPath(path + ".pyo")):
-				template = imp.load_compiled(module, getViewsPath(path + ".pyo"))
+				template = _load_module_from_file(module, getViewsPath(path + ".pyo"))
 			elif fileExists(getViewsPath(path + ".pyc")):
-				template = imp.load_compiled(module, getViewsPath(path + ".pyc"))
+				template = _load_module_from_file(module, getViewsPath(path + ".pyc"))
 			else:
-				template = imp.load_source(module, getViewsPath(path + ".py"))
+				template = _load_module_from_file(module, getViewsPath(path + ".py"))
 			mod = getattr(template, module, None)
 			if callable(mod):
 				return str(mod(searchList=args))
